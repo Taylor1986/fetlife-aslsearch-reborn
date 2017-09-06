@@ -7,11 +7,10 @@
 // @name           FetLife ASL Search (Extened Edition)
 // @version        0.4.6
 // @namespace      http://maybemaimed.com/playground/fetlife-aslsearch/
-// @updateURL      https://github.com/meitar/fetlife-aslsearch/raw/master/fetlife-age-sex-location-search.user.js
+// @updateURL      https://github.com/SchroedingerHepcat/fetlife-aslsearch/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
 // @require        https://code.jquery.com/jquery-2.1.4.min.js
 // @include        https://fetlife.com/*
-// @include        https://www.creepshield.com/search*
 // @exclude        https://fetlife.com/adgear/*
 // @exclude        https://fetlife.com/chat/*
 // @exclude        https://fetlife.com/im_sessions*
