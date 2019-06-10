@@ -827,8 +827,13 @@ FL_ASL.attachSearchForm = function () {
         div.querySelector('output[name="fl_asl_search_sleep_interval"] + abbr').getAttribute('title')
     );
     container.appendChild(div);
+    var maincontent
+    maincontent = document.getElementById('maincontent');
+    if (maincontent) {
+    maincontent.parentNode.insertBefore(container, maincontent);
+}
     FL_ASL.CONFIG.search_form.appendChild(label);
-    FL_ASL.CONFIG.search_form.appendChild(container);
+
     var radio_els = document.querySelectorAll('input[name="fl_asl_loc"]');
     for (var i = 0; i < radio_els.length; i++) {
         radio_els[i].addEventListener('click', FL_ASL.toggleLocationFilter);
