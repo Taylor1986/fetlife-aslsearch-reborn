@@ -26,13 +26,11 @@ If you use the [Google Chrome](https://chrome.google.com/) web browser (version 
 
 ## Installing
 
-To install FetLife Age/Sex/Location Search, go to [https://maybemaimed.com/playground/fetlife-aslsearch/](https://maybemaimed.com/playground/fetlife-aslsearch/) and click the "[Download and install](https://github.com/meitar/fetlife-aslsearch/raw/master/fetlife-age-sex-location-search.user.js)" near the middle of the page:
+To install FetLife Age/Sex/Location Search, go to [https://github.com/Ornias1993/fetlife-aslsearch-reborn/](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases) and copy the content to a new "GreaseMonkey" or "Tamper Monkey" script.
 
-> [Download and install FetLife Age/Sex/Location Search](https://github.com/meitar/fetlife-aslsearch/raw/master/fetlife-age-sex-location-search.user.js)
+> [Download and install FetLife Age/Sex/Location Search](https://github.com/Ornias1993/fetlife-aslsearch-reborn/blob/master/fetlife-age-sex-location-search.user.js)
 
-If you enjoy this script, please consider tossing a few metaphorical coins in [my cyberbusking hat](https://maybemaimed.com/cyberbusking/). :) Your donations are sincerely appreciated! Can't afford to part with any coin? It's cool. [Tweet your appreciation, instead](https://twitter.com/intent/tweet?text=Ever%20wanted%20to%20search%20%23FetLife%20profiles%20by%20age%2Fsex%2Flocation%2Frole%3F%20Now%20we%20can%3A%20http%3A%2F%2Fmaybemaimed.com%2Fplayground%2Ffetlife-aslsearch%2F%20All%20thx%20to%20%40maymaym%3A%20http%3A%2F%2Fmaybemaimed.com%2Fcyberbusking%2F).
-
-If [maybemaimed.com is censored](https://maybemaimed.com/where-im-censored/) where you are, you can alternatively go to [the GreasyFork.org page for FetLife Age/Sex/Location Search](https://greasyfork.org/scripts/2679) and click on "[Install this script](https://greasyfork.org/scripts/2679-fetlife-asl-search/code/FetLife%20ASL%20Search.user.js)". If the script is also unavailable at GreasyFork.org, you can download and install it directly from [GitHub.com](https://github.com/meitar/fetlife-aslsearch/raw/master/fetlife-age-sex-location-search.user.js).
+Alternatively go to [the GreasyFork.org page for FetLife Age/Sex/Location Search](https://greasyfork.org/nl/scripts/385261-fetlife-asl-search-reborn-edition) and click on "[Install this script](https://greasyfork.org/scripts/2679-fetlife-asl-search/code/FetLife%20ASL%20Search.user.js)". If the script is also unavailable at GreasyFork.org, you can download and install it directly from [GitHub.com](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases).
 
 ## Using
 
@@ -86,8 +84,6 @@ FetLife A/S/L Search (Reborn Edition) also includes a "Legacy search" mode. Usin
 FetLife A/S/L Search (Exteded Edition) is completely legal and safe to use.
 
 Still, in a trigger-happy legal environment where people eagerly sue over spilled milk, it's hard to say. IANAL, but the way this script works is actually pretty simple: it just cooperates with other copies of itself! No part of this tool involves malicious hacking, cracking, or theft. The code for the script itself is public domain (it's not even copyrighted), the information it uses is all fair-use, and the tool as a whole is what the sometimes trigger-happy people in suits call a "transformative work." (Look it up.)
-
-[FetLife has historically been very quick to mis-use the law for illegal purposes](https://web.archive.org/web/20150530060828/https://mikandi.com/blog/news/mikandi-news/fetlife-meatlist/), and there's no telling whether they'll do the same again. But even so, the chances of *you* getting in trouble is slim to none. Hell, [Meitar has been targeted by FetLife's lawyers for *years*](https://fetlife.maybemaimed.com/reverse-the-spin.html) for a bunch of other stuff and is still just fine. :P
 
 That said, since this script is public domain, it's entirely use-at-your-own-risk. There's no warranty or customer service or anything like that, but I'll happily refund the $0 you paid for it. ;)
 
