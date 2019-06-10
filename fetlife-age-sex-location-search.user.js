@@ -5,7 +5,7 @@
  */
 // ==UserScript==
 // @name           FetLife ASL Search (Reborn Edition)
-// @version        0.5.1
+// @version        0.5.2
 // @namespace      https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
@@ -827,8 +827,13 @@ FL_ASL.attachSearchForm = function () {
         div.querySelector('output[name="fl_asl_search_sleep_interval"] + abbr').getAttribute('title')
     );
     container.appendChild(div);
+    var maincontent
+    maincontent = document.getElementById('maincontent');
+    if (maincontent) {
+    maincontent.parentNode.insertBefore(container, maincontent);
+}
     FL_ASL.CONFIG.search_form.appendChild(label);
-    FL_ASL.CONFIG.search_form.appendChild(container);
+
     var radio_els = document.querySelectorAll('input[name="fl_asl_loc"]');
     for (var i = 0; i < radio_els.length; i++) {
         radio_els[i].addEventListener('click', FL_ASL.toggleLocationFilter);
