@@ -1,12 +1,12 @@
 /**
  * This is a Greasemonkey script and must be run using a Greasemonkey-compatible browser.
  *
- * @author maymay <bitetheappleback@gmail.com>
+ * @author ornias1993 <kjeld@schouten-lebbing.nl>
  */
 // ==UserScript==
-// @name           FetLife ASL Search (Extened Edition)
+// @name           FetLife ASL Search (Reborn Edition)
 // @version        0.5.1
-// @namespace      http://maybemaimed.com/playground/fetlife-aslsearch/
+// @namespace      https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
 // @require        https://code.jquery.com/jquery-2.1.4.min.js
@@ -27,7 +27,7 @@
 
 FL_UI = {}; // FetLife User Interface module
 FL_UI.Text = {
-    'donation_appeal': '<br><hr><p>FetLife ASL Search is provided as free software, but sadly grocery stores do not offer free food. If you like this script, please consider <a href="http://Cyberbusking.org/">making a donation</a> to support its continued development. &hearts; Thank you. :)</p><hr><Br><br>'
+    'donation_appeal': '<br><hr><p>FetLife ASL Search is provided as free software, but sadly grocery stores do not offer free food. If you like this script, please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kjeld@schouten-lebbing.nl&amount=&item_name=FetLife%20ASL%20Search">making a donation</a> to support its continued development. &hearts; Thank you. :)</p><hr><Br><br>'
 };
 FL_UI.Dialog = {};
 FL_UI.Dialog.createLink = function (dialog_id, html_content, parent_node) {
