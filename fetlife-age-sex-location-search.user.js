@@ -594,7 +594,7 @@ FL_ASL.createTabList = function () {
     var ul = document.createElement('ul');
     ul.setAttribute('class', 'tabs');
     html_string = '<li data-fl-asl-section-id="fetlife_asl_search_about"><a href="#">About FetLife ASL Search ' + GM_info.script.version + '</a></li>';
-    html_string += '<a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Click Here to Open Extended A/S/L Search</a></h2>';
+    html_string += '<li class="in_section" data-fl-asl-section-id="fetlife_asl_search_extended"><a href="#">Extended A/S/L search</a></li>';
     html_string += '<li data-fl-asl-section-id="fetlife_asl_search_classic"><a href="#">Legacy Search</a></li>';
     ul.innerHTML = html_string;
     ul.addEventListener('click', function (e) {
