@@ -170,7 +170,8 @@ function handleSearchSuccess (results, interval_id) {
   });
 
   var dataset = results.slice(1);
-  var table = jQuery('#search-results').DataTable({
+  var table=('#search-results').empty
+  table = jQuery('#search-results').DataTable({
     'destroy': true,
     'data': dataset,
     'columns': columns,

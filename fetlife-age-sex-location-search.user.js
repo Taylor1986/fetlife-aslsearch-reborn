@@ -5,9 +5,9 @@
  */
 // ==UserScript==
 // @name           FetLife ASL Search (Extened Edition)
-// @version        0.4.6
+// @version        0.5.1
 // @namespace      http://maybemaimed.com/playground/fetlife-aslsearch/
-// @updateURL      https://github.com/Ornias1993/fetlife-aslsearch/raw/master/fetlife-age-sex-location-search.user.js
+// @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
 // @require        https://code.jquery.com/jquery-2.1.4.min.js
 // @include        https://fetlife.com/*
@@ -62,7 +62,7 @@ FL_UI.Dialog.inject = function (id, title, html_content) {
 FL_ASL = {}; // FetLife ASL Search module
 FL_ASL.CONFIG = {
     'debug': false, // switch to true to debug.
-    'gasapp_url': 'https://script.google.com/macros/s/AKfycbxjpuCSz9uam23hztGYyiE6IbHX22EGzhq7fN4jQGo1jiRp520/exec?embedded=true',
+    'gasapp_url': 'https://script.google.com/macros/s/AKfycbzUFY6t94AxfmbLtBpTUvkjUkAma_j-17rJPPURrkvG6ZR5SPc/exec?embedded=true',
     'gasapp_url_development': 'https://script.google.com/macros/s/AKfycbxl668Zzz6FW9iLMqtyP_vZYkvqOJK3ZKX308fMcCc/dev?embedded=true',
     'progress_id': 'fetlife_asl_search_progress',
     'min_matches': 1, // show at least this many matches before offering to search again
@@ -594,7 +594,7 @@ FL_ASL.createTabList = function () {
     var ul = document.createElement('ul');
     ul.setAttribute('class', 'tabs');
     html_string = '<li data-fl-asl-section-id="fetlife_asl_search_about"><a href="#">About FetLife ASL Search ' + GM_info.script.version + '</a></li>';
-    html_string += '<li class="in_section" data-fl-asl-section-id="fetlife_asl_search_extended"><a href="#">Extended Search</a></li>';
+    html_string += '<a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Click Here to Open Extended A/S/L Search</a></h2>';
     html_string += '<li data-fl-asl-section-id="fetlife_asl_search_classic"><a href="#">Legacy Search</a></li>';
     ul.innerHTML = html_string;
     ul.addEventListener('click', function (e) {
@@ -672,7 +672,7 @@ FL_ASL.attachSearchForm = function () {
     // Extended search tab
     html_string = '<br><div id="fetlife_asl_search_extended_wrapper">';
     html_string += '<h5><b><a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Extended A/S/L Search</a><b></h5><hr>';
-    html_string += '<iframe src="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" width="100%" height="500px"><h2><a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Open Extended A/S/L Search</a></h2></iframe>';
+    html_string += '<a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Click Here to Open Extended A/S/L Search</a></h2>';
     html_string += '</div><!-- #fetlife_asl_search_extended_wrapper -->';
     var newdiv = container.appendChild(FL_ASL.createSearchTab('fetlife_asl_search_extended', html_string));
 
