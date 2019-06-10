@@ -1,4 +1,4 @@
-# FetLife Age/Sex/Location Search (Extended Edition)
+# FetLife Age/Sex/Location Search (Reborn Edition)
 
 The FetLife Age/Sex/Location Search user script allows you to search for profiles on [FetLife](https://fetlife.com/) by age, sex, location, sexual role, sexual orientation, profile bio (a user's "About Me" section), listed fetishes, what they've entered for "Looking For," and much, much more. This user script implements and then extends what is, as of this writing, the [most popular suggestion in the FetLife suggestion box](https://fetlife.com/improvements/78):
 
@@ -10,7 +10,7 @@ With the FetLife Age/Sex/Location Search user script installed, a few clicks wil
 
 **This edition of the FetLife A/S/L Search script is an enhanced, extended version with full support for all genders and designed in a way that makes it immune to FetLife's recent automatic banhammer.**
 
-FetLife A/S/L Search (Extended Edition) is the easiest, fastest, and *safest* way to search profiles on FetLife. It's ad-free and free-of-charge. The code is open source and the service is maintained solely by donations. If you like this script, consider donating to support me in making continued improvements. But even if you don't donate, you'll still be able to use every feature, forever, 'cause that's how I roll.
+FetLife A/S/L Search (Reborn Edition) is the easiest, fastest, and *safest* way to search profiles on FetLife. It's ad-free and free-of-charge. The code is open source and the service is maintained solely by donations. If you like this script, consider donating to support me in making continued improvements. But even if you don't donate, you'll still be able to use every feature, forever, 'cause that's how I roll.
 
 ## System requirements
 
@@ -54,7 +54,7 @@ When you've selected your search criteria, click "Search." The search panels wil
 
 ![Screenshot of search result.](http://i.imgur.com/V5ywl32.png)
 
-Due to the sheer number of profiles FetLife A/S/L Search (Extended) is able to search and the speed with which it can do so, results are both batched and paged. If your search query returns many results, you will see a pagination control at the bottom of the search results table that will allow you to page through the batch. You can also filter the batch using the "Filter results batch" text field at the top-right of the table. After the first result batch is presented to you, the "Search" button becomes a "Show batch number 2" button. Clicking on it again requests the second batch from your  search.
+Due to the sheer number of profiles FetLife A/S/L Search (Reborn) is able to search and the speed with which it can do so, results are both batched and paged. If your search query returns many results, you will see a pagination control at the bottom of the search results table that will allow you to page through the batch. You can also filter the batch using the "Filter results batch" text field at the top-right of the table. After the first result batch is presented to you, the "Search" button becomes a "Show batch number 2" button. Clicking on it again requests the second batch from your  search.
 
 To start a new search, click the "Reset" button.
 
@@ -67,7 +67,7 @@ Before you report a new issue with FetLife Age/Sex/Location Search, please check
 
 ### Can I search in a location other than my own city, state, or country?
 
-Yes. The original FetLife Age/Sex/Location Search didn't provide an interface for you to choose a location directly, but this Extended Edition does. However, the location fields can be tricky for some. They are case-sensitive and the value you enter is matched against only one location field (either city, state/province, or country). This means you can only search for one of these at a time.
+Yes. The original FetLife Age/Sex/Location Search didn't provide an interface for you to choose a location directly, but this Reborn Edition does. However, the location fields can be tricky for some. They are case-sensitive and the value you enter is matched against only one location field (either city, state/province, or country). This means you can only search for one of these at a time.
 
 For example, say you want to find profiles listed as being in "Baltimore, Maryland, United States." The best way to search for this location is to enter `Baltimore` in the location text box. Notice the proper capitalization! Similarly, if you want to find profiles of anyone in the State of Maine, enter `Maine` and again pay attention to proper capitalization. This may also return some results of profiles listed as being in a *city* named "Maine," but hopefully you can put up with a tiny bit of imperfection. I may be able to fix this issue in a future version of this script, so be sure to keep your script updated.
 
@@ -75,11 +75,11 @@ For example, say you want to find profiles listed as being in "Baltimore, Maryla
 
 You're probably confusing this script with a different FetLife ASL Search script. There are a huge number of copy-cat scripts out on the Web, and many of them are unable to search stealthily. This script is *immune* from FetLife's auto-ban because the way it works remains 100% invisible to FetLife.
 
-For some reason, FetLife decided to start automatically banning accounts that they suspect use tools they disapprove of even if those tools make your FetLife experience more of what you want it to be. They do this by trying to detect add-ons that "crawl" their website, that is, tools that load many pages at once. FetLife A/S/L Search (Extended Edition) is undetectable by FetLife because it doesn't load any pages you don't. Unlike the many immitations of this script, FetLife A/S/L Search (Extended) *does not crawl FetLife* and so using it is completely safe.
+For some reason, FetLife decided to start automatically banning accounts that they suspect use tools they disapprove of even if those tools make your FetLife experience more of what you want it to be. They do this by trying to detect add-ons that "crawl" their website, that is, tools that load many pages at once. FetLife A/S/L Search (Reborn Edition) is undetectable by FetLife because it doesn't load any pages you don't. Unlike the many immitations of this script, FetLife A/S/L Search (Reborn) *does not crawl FetLife* and so using it is completely safe.
 
 If you're still using the old, original version of this script or installed one that a lot of other folks copied, however, your account may have been banned for "crawling" even if you weren't *actually* crawling. (FetLife's detection system just makes a best-guess, they're not exactly very sophisticated.) The good news is that if you email the FetLife carebears you might be able to convince them to reactivate your account. It's important that you insist you were not using any unapproved tools to increase your chances of getting your account reactivated.
 
-FetLife A/S/L Search (Extended Edition) also includes a "Classic (slow) search" mode. Using that mode is generally discouraged because the Extended mode is faster and safer. But if you do insist on using the old "crawler" search method, this script includes an "Online search speed: Wait X seconds per page" option that lets you control how quickly your search proceeds. The higher (more stealthy) you set this value, the safer your account, but the slower your searches will be.
+FetLife A/S/L Search (Reborn Edition) also includes a "Legacy search" mode. Using that mode is generally discouraged because the Reborn mode is faster and safer. But if you do insist on using the old "crawler" search method, this script includes an "Online search speed: Wait X seconds per page" option that lets you control how quickly your search proceeds. The higher (more stealthy) you set this value, the safer your account, but the slower your searches will be.
 
 ### Is this legal? Will I get in trouble for using this?
 
@@ -87,11 +87,28 @@ FetLife A/S/L Search (Exteded Edition) is completely legal and safe to use.
 
 Still, in a trigger-happy legal environment where people eagerly sue over spilled milk, it's hard to say. IANAL, but the way this script works is actually pretty simple: it just cooperates with other copies of itself! No part of this tool involves malicious hacking, cracking, or theft. The code for the script itself is public domain (it's not even copyrighted), the information it uses is all fair-use, and the tool as a whole is what the sometimes trigger-happy people in suits call a "transformative work." (Look it up.)
 
-[FetLife has historically been very quick to mis-use the law for illegal purposes](https://web.archive.org/web/20150530060828/https://mikandi.com/blog/news/mikandi-news/fetlife-meatlist/), and there's no telling whether they'll do the same again. But even so, the chances of *you* getting in trouble is slim to none. Hell, [I've been targeted by FetLife's lawyers for *years*](https://fetlife.maybemaimed.com/reverse-the-spin.html) for a bunch of other stuff and I'm still just fine. :P
+[FetLife has historically been very quick to mis-use the law for illegal purposes](https://web.archive.org/web/20150530060828/https://mikandi.com/blog/news/mikandi-news/fetlife-meatlist/), and there's no telling whether they'll do the same again. But even so, the chances of *you* getting in trouble is slim to none. Hell, [Meitar has been targeted by FetLife's lawyers for *years*](https://fetlife.maybemaimed.com/reverse-the-spin.html) for a bunch of other stuff and is still just fine. :P
 
 That said, since this script is public domain, it's entirely use-at-your-own-risk. There's no warranty or customer service or anything like that, but I'll happily refund the $0 you paid for it. ;)
 
 ## Change log
+* Version 0.5.1
+    * Note: Actual launch version of 0.5
+* **EXTENDED EDITION (version 0.5)**
+* The "Extended Edition" adds a huge number of features and improves the speed, safety, and ease-of-use of A/S/L-based searches.
+    * **Fixed: Extended search**
+        * Extended search is fully working again
+        * Extended search database had to be wiped sadly enough
+        * Extended search is not inside fetlife anymore, do changed fetlife security policies
+    * **Removed: defamation and slander.**
+        * The FAADE integration has been fully removed
+        * FAADE may be seen as defamation and slander under some jurisdictions
+        * Statement stating that "Paying fetlife customers may be more preditory" is removed, being unfounded, slander and non-inclusive.
+    * **Changed: After many years Meitar has stoped support. Ornias1993 has forked and taken over development**
+        * Non-merged fixes are merged
+        * Ignored server update has been executed
+        * Many thanks to Meitar for the years of support
+Versions of this script prior to 0.5 are considered deprecated, broken and/or unsafe to use.
 
 * Version 0.4.6
     * [Bugfix](https://github.com/meitar/fetlife-aslsearch/issues/27): Fix disappearing "A/S/L?" checkbox for Google Chrome browser users.

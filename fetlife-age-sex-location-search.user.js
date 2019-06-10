@@ -1,12 +1,12 @@
 /**
  * This is a Greasemonkey script and must be run using a Greasemonkey-compatible browser.
  *
- * @author maymay <bitetheappleback@gmail.com>
+ * @author ornias1993 <kjeld@schouten-lebbing.nl>
  */
 // ==UserScript==
-// @name           FetLife ASL Search (Extened Edition)
-// @version        0.5.0
-// @namespace      http://maybemaimed.com/playground/fetlife-aslsearch/
+// @name           FetLife ASL Search (Reborn Edition)
+// @version        0.5.1
+// @namespace      https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
 // @require        https://code.jquery.com/jquery-2.1.4.min.js
@@ -27,7 +27,7 @@
 
 FL_UI = {}; // FetLife User Interface module
 FL_UI.Text = {
-    'donation_appeal': '<br><hr><p>FetLife ASL Search is provided as free software, but sadly grocery stores do not offer free food. If you like this script, please consider <a href="http://Cyberbusking.org/">making a donation</a> to support its continued development. &hearts; Thank you. :)</p><hr><Br><br>'
+    'donation_appeal': '<br><hr><p>FetLife ASL Search is provided as free software, but sadly grocery stores do not offer free food. If you like this script, please consider <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kjeld@schouten-lebbing.nl&amount=&item_name=FetLife%20ASL%20Search">making a donation</a> to support its continued development. &hearts; Thank you. :)</p><hr><Br><br>'
 };
 FL_UI.Dialog = {};
 FL_UI.Dialog.createLink = function (dialog_id, html_content, parent_node) {
@@ -62,7 +62,7 @@ FL_UI.Dialog.inject = function (id, title, html_content) {
 FL_ASL = {}; // FetLife ASL Search module
 FL_ASL.CONFIG = {
     'debug': false, // switch to true to debug.
-    'gasapp_url': 'https://script.google.com/macros/s/AKfycbxjpuCSz9uam23hztGYyiE6IbHX22EGzhq7fN4jQGo1jiRp520/exec?embedded=true',
+    'gasapp_url': 'https://script.google.com/macros/s/AKfycbzUFY6t94AxfmbLtBpTUvkjUkAma_j-17rJPPURrkvG6ZR5SPc/exec?embedded=true',
     'gasapp_url_development': 'https://script.google.com/macros/s/AKfycbxl668Zzz6FW9iLMqtyP_vZYkvqOJK3ZKX308fMcCc/dev?embedded=true',
     'progress_id': 'fetlife_asl_search_progress',
     'min_matches': 1, // show at least this many matches before offering to search again
@@ -594,7 +594,7 @@ FL_ASL.createTabList = function () {
     var ul = document.createElement('ul');
     ul.setAttribute('class', 'tabs');
     html_string = '<li data-fl-asl-section-id="fetlife_asl_search_about"><a href="#">About FetLife ASL Search ' + GM_info.script.version + '</a></li>';
-    html_string += '<li class="in_section" data-fl-asl-section-id="fetlife_asl_search_extended"><a href="#">Extended Search</a></li>';
+    html_string += '<li class="in_section" data-fl-asl-section-id="fetlife_asl_search_extended"><a href="#">Extended A/S/L search</a></li>';
     html_string += '<li data-fl-asl-section-id="fetlife_asl_search_classic"><a href="#">Legacy Search</a></li>';
     ul.innerHTML = html_string;
     ul.addEventListener('click', function (e) {
@@ -672,7 +672,7 @@ FL_ASL.attachSearchForm = function () {
     // Extended search tab
     html_string = '<br><div id="fetlife_asl_search_extended_wrapper">';
     html_string += '<h5><b><a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Extended A/S/L Search</a><b></h5><hr>';
-    html_string += '<iframe src="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" width="100%" height="500px"><h2><a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Open Extended A/S/L Search</a></h2></iframe>';
+    html_string += '<a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Click Here to Open Extended A/S/L Search</a></h2>';
     html_string += '</div><!-- #fetlife_asl_search_extended_wrapper -->';
     var newdiv = container.appendChild(FL_ASL.createSearchTab('fetlife_asl_search_extended', html_string));
 
