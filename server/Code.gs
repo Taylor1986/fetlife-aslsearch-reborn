@@ -74,7 +74,7 @@ function validateScraperInput (obj) {
         }
         break;
       case 'avatar_url':
-        if (obj[k].match(/^https:\/\/flpics[0-9]*\.[a-z]+\.ssl\.fastly\.net/)) {
+        if (obj[k].match(/^https:\/\/pic[0-9]*\.fetlife\.com/)) {
           safe_obj[k] = obj[k];
         }
         break;
