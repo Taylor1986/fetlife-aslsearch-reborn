@@ -671,8 +671,10 @@ FL_ASL.attachSearchForm = function () {
 
     // Extended search tab
     html_string = '<br><div id="fetlife_asl_search_extended_wrapper">';
+    html_string += '<script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>'
     html_string += '<script type="module" src="https://unpkg.com/x-frame-bypass"></script>'
     html_string += '<iframe is="x-frame-bypass" src="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" width="100%" height="500px"><h2><a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Open Extended A/S/L Search</a></h2></iframe>';
+    html_string += '<h4><a href="' + FL_ASL.CONFIG.gasapp_url.split('?')[0] + '" target="_blank">Open Extended A/S/L Search in a seperate window</a></h4>'
     html_string += '</div><!-- #fetlife_asl_search_extended_wrapper -->';
     var newdiv = container.appendChild(FL_ASL.createSearchTab('fetlife_asl_search_extended', html_string));
 
