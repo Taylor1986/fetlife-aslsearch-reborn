@@ -88,6 +88,8 @@ Still, in a trigger-happy legal environment where people eagerly sue over spille
 That said, since this script is public domain, it's entirely use-at-your-own-risk. There's no warranty or customer service or anything like that, but I'll happily refund the $0 you paid for it. ;)
 
 ## Change log
+* Version 0.5.3
+    * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/10): Fixes Extended search not showing inside plugin/script
 * Version 0.5.2
     * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/9): Fixes GUI glitches
 * Version 0.5.1
