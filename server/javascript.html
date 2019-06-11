@@ -162,8 +162,8 @@ function handleSearchSuccess (results, interval_id) {
       if (row[10]) {
         html += '<form action="https://www.tineye.com/search" method="POST" target="_blank"><input type="hidden" name="url" value="' + row[10] + '" /><button type="submit" class="btn btn-info btn-xs" style="width:100%">Find ' + row[1] + '\'s profile pic on other sites</button></form>'
       }
-      var pat_fetlife_form_url = 'https://docs.google.com/spreadsheet/viewform?formkey=dGNVT1kzSzFnOXhHRjh1RnczZVVmMXc6MQ';
-      html += '<a href="' + pat_fetlife_form_url + '&entry_0=' + row[0] + '&entry_1=' + row[1] + '" class="btn btn-danger btn-xs" target="_blank">Report ' + row[1] + ' for predatory behavior</a>';
+      var report_url = 'mailto:caretakers@fetlife.com?SUBJECT=I want to report';
+      html += '<a href="' + report_url + row[1] + '&entry_0=' + row[0] + '&entry_1=' + row[1] + '" class="btn btn-danger btn-xs" target="_blank">Report ' + row[1] + ' to Caretakers</a>';
       html += '</div>';
       return html;
     }
