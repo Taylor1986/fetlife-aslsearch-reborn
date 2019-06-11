@@ -13,7 +13,7 @@ function doGet (e) {
     default:
       var t = HtmlService.createTemplateFromFile('index');
       t.GET = e;
-      output = t.evaluate().setSandboxMode(HtmlService.SandboxMode.IFRAME);
+      output = t.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
       break;
   }
   return output;
