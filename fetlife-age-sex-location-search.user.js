@@ -1123,7 +1123,7 @@ FL_ASL.scrapeProfile = function (user_id) {
     return profile_data;
 }
 FL_ASL.scrapeUserInList = function (node) {
-    // Deal with location inconsistencies.
+    // TODO Deal with location inconsistencies.
     var loc_parts = jQuery(node).find('.fl-member-card__location').first().text().split(', ');
     var locality = ''; var region = ''; var country = '';
     if (2 === loc_parts.length) {
