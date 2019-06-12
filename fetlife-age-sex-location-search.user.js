@@ -205,43 +205,6 @@ FL_ASL.loadUserProfileHtml = function (callback, id) {
 };
 
 
-
-
-
-
-FL_ASL.getGender = function (el) {
-    var parsed = FL_ASL.scrapeUserInList(el);
-    if (parsed.gender) {
-        return parsed.gender;
-    } else {
-        return '';
-    }
-}
-FL_ASL.getAge = function (el) {
-    var parsed = FL_ASL.scrapeUserInList(el);
-    if (parsed.age) {
-        return parseInt(parsed.age);
-    } else {
-        return '';
-    }
-};
-FL_ASL.getRole = function (el) {
-    var parsed = FL_ASL.scrapeUserInList(el);
-    if (parsed.role) {
-        return parsed.role;
-    } else {
-        return '';
-    }
-};
-FL_ASL.getLocationString = function (el) {
-    if (el.querySelector('.fl-member-card__location')) {
-        return el.querySelector('.fl-member-card__location').innerHTML.trim();
-    } else {
-        return '';
-    }
-};
-
-
 FL_ASL.getActivateSearchButton = function () {
     var el = document.getElementById('fetlife_asl_search');
     if (!el) {
