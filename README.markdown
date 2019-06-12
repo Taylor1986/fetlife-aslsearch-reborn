@@ -18,7 +18,7 @@ The following software must be installed on your system before installing the Fe
 
 ### Mozilla Firefox
 
-If you use the [Mozilla Firefox](http://getfirefox.com/) web browser (version 12.0 or higher), ensure you have the [Greasemonkey extension](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) installed (at version 1.0 or higher).
+If you use the [Mozilla Firefox](http://getfirefox.com/) web browser (version 12.0 or higher), ensure you have the [Tampermonkey extension](https://addons.mozilla.org/nl/firefox/addon/tampermonkey/) installed (at version 1.0 or higher).
 
 ### Google Chrome
 
@@ -26,7 +26,7 @@ If you use the [Google Chrome](https://chrome.google.com/) web browser (version 
 
 ## Installing
 
-To install FetLife Age/Sex/Location Search, go to [https://github.com/Ornias1993/fetlife-aslsearch-reborn/](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases) and copy the content to a new "GreaseMonkey" or "Tamper Monkey" script.
+To install FetLife Age/Sex/Location Search, go to [https://github.com/Ornias1993/fetlife-aslsearch-reborn/](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases) and copy the content to a new "Tamper Monkey" script.
 
 > [Download and install FetLife Age/Sex/Location Search](https://github.com/Ornias1993/fetlife-aslsearch-reborn/blob/master/fetlife-age-sex-location-search.user.js)
 
