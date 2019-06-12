@@ -1,10 +1,9 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-<script src="//cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-3.3.1/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js"></script>
+
+<!-- TODO replace those they are depricated -->
 <script src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.js"></script>
 <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+
 <script>
 jQuery(document).ready(function () {
   jQuery('[data-toggle="popover"]').popover();
@@ -162,8 +161,8 @@ function handleSearchSuccess (results, interval_id) {
       if (row[10]) {
         html += '<form action="https://www.tineye.com/search" method="POST" target="_blank"><input type="hidden" name="url" value="' + row[10] + '" /><button type="submit" class="btn btn-info btn-xs" style="width:100%">Find ' + row[1] + '\'s profile pic on other sites</button></form>'
       }
-      var pat_fetlife_form_url = 'https://docs.google.com/spreadsheet/viewform?formkey=dGNVT1kzSzFnOXhHRjh1RnczZVVmMXc6MQ';
-      html += '<a href="' + pat_fetlife_form_url + '&entry_0=' + row[0] + '&entry_1=' + row[1] + '" class="btn btn-danger btn-xs" target="_blank">Report ' + row[1] + ' for predatory behavior</a>';
+      var report_url = 'mailto:caretakers@fetlife.com?SUBJECT=I want to report ';
+      html += '<a href="' + report_url + row[1] + '&entry_0=' + row[0] + '&entry_1=' + row[1] + '" class="btn btn-danger btn-xs" target="_blank">Report ' + row[1] + ' to Caretakers</a>';
       html += '</div>';
       return html;
     }

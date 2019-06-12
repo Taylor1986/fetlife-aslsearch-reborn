@@ -1,11 +1,11 @@
 /**
- * This is a Greasemonkey script and must be run using a Greasemonkey-compatible browser.
+ * This is a Tempermonkey script and must be run using a Tempermonkey-compatible browser.
  *
  * @author ornias1993 <kjeld@schouten-lebbing.nl>
  */
 // ==UserScript==
 // @name           FetLife ASL Search (Reborn Edition)
-// @version        0.5.3
+// @version        0.5.4
 // @namespace      https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
@@ -23,7 +23,6 @@
 // @grant          GM_deleteValue
 // @grant          GM_openInTab
 // ==/UserScript==
-
 
 FL_UI = {}; // FetLife User Interface module
 FL_UI.Text = {
@@ -595,7 +594,7 @@ FL_ASL.createTabList = function () {
     ul.setAttribute('class', 'tabs');
     html_string = '<li data-fl-asl-section-id="fetlife_asl_search_about"><a href="#">About FetLife ASL Search ' + GM_info.script.version + '</a></li>';
     html_string += '<li class="in_section" data-fl-asl-section-id="fetlife_asl_search_extended"><a href="#">Extended A/S/L search</a></li>';
-    html_string += '<li data-fl-asl-section-id="fetlife_asl_search_classic"><a href="#">Legacy Search</a></li>';
+    html_string += '<li data-fl-asl-section-id="fetlife_asl_search_classic" style="display:none"><a href="#">Legacy Search</a></li>';
     ul.innerHTML = html_string;
     ul.addEventListener('click', function (e) {
         var id_to_show = jQuery(e.target.parentNode).data('fl-asl-section-id');
@@ -1123,13 +1122,22 @@ FL_ASL.scrapeProfile = function (user_id) {
     return profile_data;
 }
 FL_ASL.scrapeUserInList = function (node) {
-    // Deal with location inconsistencies.
+    console.log("Scraping user from List");
     var loc_parts = jQuery(node).find('.fl-member-card__location').first().text().split(', ');
     var locality = ''; var region = ''; var country = '';
     if (2 === loc_parts.length) {
+      var countries = ['Afghanistan', 'Aland', 'Islands', 'Albania', 'Algeria', 'American', 'Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica', 'Antigua', 'and', 'Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bonaire', 'Bosnia', 'and', 'Herzegovina', 'Botswana', 'Bouvet', 'Island', 'Brazil', 'British', 'Indian', 'Ocean', 'Territory', 'Brunei', 'Bulgaria', 'Burkina', 'Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Canary', 'Islands', 'Cape', 'Verde', 'Cayman', 'Islands', 'Central', 'African', 'Republic', 'Chad', 'Chile', 'China', 'Christmas', 'Island', 'Cocos', '(Keeling)', 'Islands', 'Colombia', 'Comoros', 'Congo,', 'Democratic', 'Republic', 'of', 'Congo,', 'Republic', 'of', 'Cook', 'Islands', 'Costa', 'Rica', 'Croatia', 'Cuba', 'Curacao', 'Cyprus', 'Czech', 'Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican', 'Republic', 'Ecuador', 'Egypt', 'El', 'Salvador', 'Equatorial', 'Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Falkland', 'Islands', 'Faroe', 'Islands', 'Fiji', 'Finland', 'France', 'French', 'Guiana', 'French', 'Polynesia', 'French', 'Southern', 'Lands', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guadeloupe', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Heard', 'Island', 'and', 'Mcdonald', 'Islands', 'Honduras', 'Hong', 'Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Isle', 'of', 'Man', 'Israel', 'Italy', 'Ivory', 'Coast', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Lybia', 'Macao', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall', 'Islands', 'Martinique', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Netherlands', 'Antilles', 'New', 'Caledonia', 'New', 'Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norfolk', 'Island', 'North', 'Korea', 'Northern', 'Mariana', 'Islands', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua', 'New', 'Guinea', 'Paraguay', 'Peru', 'Philippines', 'Pitcairn', 'Poland', 'Portugal', 'Puerto', 'Rico', 'Qatar', 'Reunion', 'Romania', 'Russia', 'Rwanda', 'Saint', 'Barthélemy', 'Saint', 'Helena', 'Saint', 'Kitts', 'and', 'Nevis', 'Saint', 'Lucia', 'Saint', 'Martin', 'Saint', 'Pierre', 'and', 'Miquelon', 'Saint', 'Vincent', 'Samoa', 'San', 'Marino', 'São', 'Tomé', 'and', 'Príncipe', 'Saudi', 'Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra', 'Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon', 'Islands', 'Somalia', 'South', 'Africa', 'South', 'Georgia', 'and', 'the', 'South', 'Sandwich', 'Islands', 'South', 'Korea', 'South', 'Sudan', 'Spain', 'Sri', 'Lanka', 'Sudan', 'Suriname', 'Svalbard', 'and', 'Jan', 'Mayen', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tokelau', 'Tonga', 'Trinidad', 'and', 'Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks', 'and', 'Caicos', 'Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United', 'Arab', 'Emirates', 'United', 'Kingdom', 'United', 'States', 'United', 'States', 'Minor', 'Outlying', 'Islands', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican', 'City', 'Venezuela', 'Vietnam', 'Virgin', 'Islands,', 'British', 'Virgin', 'Islands,', 'U.S.', 'Wallis', 'and', 'Futuna', 'Western', 'Sahara', 'Yemen', 'Zambia', 'Zimbabwe'];
+      loc_parts[1] = loc_parts[1].replace(/\n|\r/g, "").trim();
+      loc_parts[0] = loc_parts[0].replace(/\n|\r/g, "").trim();
+      if (countries.indexOf(loc_parts[1]) !== -1) {
+        region = loc_parts[0];
+        country = loc_parts[1];
+      } else {
         locality = loc_parts[0];
-        region   = loc_parts[1];
-    } else if (1 === loc_parts.length) {
+        region = loc_parts[1];
+      }
+    }
+    else if (1 === loc_parts.length) {
         country = loc_parts[0];
     }
     var profile_data = {
