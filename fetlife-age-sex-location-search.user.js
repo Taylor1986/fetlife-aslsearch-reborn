@@ -133,8 +133,7 @@ function $x() {
 var uw = (unsafeWindow) ? unsafeWindow : window ; // Help with Chrome compatibility?
 GM_addStyle('\
 #fetlife_asl_search_ui_container,\
-#fetlife_asl_search_about,\
-#fetlife_asl_search_classic\
+#fetlife_asl_search_about\
 { display: none; }\
 #fetlife_asl_search_ui_container > div {\
     clear: both;\
@@ -143,10 +142,10 @@ GM_addStyle('\
     z-index: 2;\
     top: -2px;\
 }\
-#fetlife_asl_search_ui_container div a, #fetlife_asl_search_results div a {\
+#fetlife_asl_search_ui_container div a {\
     text-decoration: underline;\
 }\
-#fetlife_asl_search_ui_container div a:hover, #fetlife_asl_search_results div a:hover {\
+#fetlife_asl_search_ui_container div a:hover {\
     background-color: blue;\
     text-decoration: underline;\
 }\
@@ -166,14 +165,6 @@ GM_addStyle('\
     padding-top: 5px;\
     z-index: 2;\
 }\
-#fetlife_asl_search_classic fieldset { clear: both; margin: 0; padding: 0; }\
-#fetlife_asl_search_classic legend { display: none; }\
-#fetlife_asl_search_classic label {\
-    display: inline-block;\
-    white-space: nowrap;\
-}\
-#fetlife_asl_search_classic input { width: auto; }\
-#fetlife_asl_search_results { clear: both; }\
 ');
 FL_ASL.init = function () {
     FL_ASL.CONFIG.search_form = document.querySelector('form[action="/search"]').parentNode;
@@ -194,32 +185,6 @@ FL_ASL.toggleAslSearch = function () {
     } else {
         el.style.display = 'block';
     }
-};
-
-
-
-
-FL_ASL.getUserLocationIds = function () {
-    var r = {
-        'city_id': null,
-        'area_id': null,
-        'country': null
-    };
-    var profile_html = FL_ASL.getUserProfileHtml();
-    var m = profile_html.match(/href="\/countries\/([0-9]+)/);
-    if (m) {
-        r.country = m[1];
-    }
-    m = profile_html.match(/href="\/administrative_areas\/([0-9]+)/);
-    if (m) {
-        r.area_id = m[1];
-    }
-    m = profile_html.match(/href="\/cities\/([0-9]+)/);
-    if (m) {
-        r.city_id = m[1];
-    }
-
-    return r;
 };
 
 FL_ASL.getUserProfileHtml = function () {
@@ -276,17 +241,6 @@ FL_ASL.getLocationString = function (el) {
     }
 };
 
-FL_ASL.displayResult = function (el) {
-    var id = FL_ASL.scrapeUserInList(el).user_id;
-    var name = FL_ASL.scrapeUserInList(el).nickname;
-    var a = document.createElement('a');
-    a.href = 'https://fetlife.com/conversations/new?with=' + id;
-    a.innerHTML = '(send ' + name + ' a message)';
-    a.style.textDecoration = 'underline';
-    a.setAttribute('target', '_blank');
-    el.appendChild(a);
-    document.getElementById('fetlife_asl_search_results').appendChild(el);
-};
 
 FL_ASL.getActivateSearchButton = function () {
     var el = document.getElementById('fetlife_asl_search');
