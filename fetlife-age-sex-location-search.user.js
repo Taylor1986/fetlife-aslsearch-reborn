@@ -1,11 +1,11 @@
 /**
- * This is a Greasemonkey script and must be run using a Greasemonkey-compatible browser.
+ * This is a Tempermonkey script and must be run using a Tempermonkey-compatible browser.
  *
  * @author ornias1993 <kjeld@schouten-lebbing.nl>
  */
 // ==UserScript==
 // @name           FetLife ASL Search (Reborn Edition)
-// @version        0.5.3
+// @version        0.5.4
 // @namespace      https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description    Allows you to search for FetLife profiles based on age, sex, location, and role.

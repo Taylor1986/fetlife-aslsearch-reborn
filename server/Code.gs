@@ -4,6 +4,7 @@
  * @author <a href="https://maybemaimed.com/tag/fetlife/">maymay</a>
  */
 
+
 function doGet (e) {
   var output;
   switch (e.parameter.action) {
