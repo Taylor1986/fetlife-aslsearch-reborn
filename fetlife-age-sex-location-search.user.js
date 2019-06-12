@@ -594,7 +594,6 @@ FL_ASL.createTabList = function () {
     ul.setAttribute('class', 'tabs');
     html_string = '<li data-fl-asl-section-id="fetlife_asl_search_about"><a href="#">About FetLife ASL Search ' + GM_info.script.version + '</a></li>';
     html_string += '<li class="in_section" data-fl-asl-section-id="fetlife_asl_search_extended"><a href="#">Extended A/S/L search</a></li>';
-    html_string += '<li data-fl-asl-section-id="fetlife_asl_search_classic" style="display:none"><a href="#">Legacy Search</a></li>';
     ul.innerHTML = html_string;
     ul.addEventListener('click', function (e) {
         var id_to_show = jQuery(e.target.parentNode).data('fl-asl-section-id');
@@ -677,157 +676,6 @@ FL_ASL.attachSearchForm = function () {
     html_string += '</div><!-- #fetlife_asl_search_extended_wrapper -->';
     var newdiv = container.appendChild(FL_ASL.createSearchTab('fetlife_asl_search_extended', html_string));
 
-    // Main ASL search option interface
-    html_string =  '<br><hr>This legacy mode is known to be detectable by fetlife and should not be used, use at your own risk.<br><hr><br>';
-    html_string += '<fieldset><legend>Search for user profiles of the following gender/sex:</legend><p>';
-    html_string += 'Show me profiles of people with a gender/sex of&hellip;<br>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="M" checked="checked" /> Male</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="F" /> Female</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="CD/TV" />Crossdresser/Transvestite</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="MtF" />Trans - Male to Female</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="FtM" checked="checked" />Trans - Female to Male</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="TG" />Transgender</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="GF" />Gender Fluid</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="GQ" />Genderqueer</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="IS" />Intersex</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="B" />Butch</label>';
-    html_string += '<label><input type="checkbox" name="user[sex]" value="FEM" />Femme</label>';
-    html_string += '</p></fieldset>';
-    html_string += '<fieldset><legend>Search for user profiles between the ages of:</legend><p>';
-    html_string += '&hellip;who are also <label>at least <input type="text" name="min_age" id="min_age" placeholder="18" size="2" /> years old</label> and <label>at most <input type="text" name="max_age" id="max_age" placeholder="92" size="2" /> years old&hellip;</label>';
-    html_string += '</p></fieldset>';
-    html_string += '<fieldset><legend>Search for user profiles whose role is:</legend><p>';
-    html_string += '&hellip;who identify their role as <br>';
-    // Note that these values are what show up, not necessarily what's sent to the FetLife backend.
-    html_string += '<label><input type="checkbox" value="Dom" name="user[role]" />Dominant</label>';
-    html_string += '<label><input type="checkbox" value="Domme" name="user[role]" />Domme</label>';
-    html_string += '<label><input type="checkbox" value="Switch" name="user[role]" />Switch</label>';
-    html_string += '<label><input type="checkbox" value="sub" name="user[role]" />submissive</label>';
-    html_string += '<label><input type="checkbox" value="Master" name="user[role]" />Master</label>';
-    html_string += '<label><input type="checkbox" value="Mistress" name="user[role]" />Mistress</label>';
-    html_string += '<label><input type="checkbox" value="slave" name="user[role]" />slave</label>';
-    html_string += '<label><input type="checkbox" value="kajira" name="user[role]" />kajira</label>';
-    html_string += '<label><input type="checkbox" value="kajirus" name="user[role]" />kajirus</label>';
-    html_string += '<label><input type="checkbox" value="Top" name="user[role]" />Top</label>';
-    html_string += '<label><input type="checkbox" value="bottom" name="user[role]" />Bottom</label>';
-    html_string += '<label><input type="checkbox" value="Sadist" name="user[role]" />Sadist</label>';
-    html_string += '<label><input type="checkbox" value="Masochist" name="user[role]" />Masochist</label>';
-    html_string += '<label><input type="checkbox" value="Sadomasochist" name="user[role]" />Sadomasochist</label>';
-    html_string += '<label><input type="checkbox" value="Kinkster" name="user[role]" />Kinkster</label>';
-    html_string += '<label><input type="checkbox" value="Fetishist" name="user[role]" />Fetishist</label>';
-    html_string += '<label><input type="checkbox" value="Swinger" name="user[role]" />Swinger</label>';
-    html_string += '<label><input type="checkbox" value="Hedonist" name="user[role]" />Hedonist</label>';
-    html_string += '<label><input type="checkbox" value="Exhibitionist" name="user[role]" />Exhibitionist</label>';
-    html_string += '<label><input type="checkbox" value="Voyeur" name="user[role]" />Voyeur</label>';
-    html_string += '<label><input type="checkbox" value="Sensualist" name="user[role]" />Sensualist</label>';
-    html_string += '<label><input type="checkbox" value="Princess" name="user[role]" />Princess</label>';
-    html_string += '<label><input type="checkbox" value="Slut" name="user[role]" />Slut</label>';
-    html_string += '<label><input type="checkbox" value="Doll" name="user[role]" />Doll</label>';
-    html_string += '<label><input type="checkbox" value="sissy" name="user[role]" />sissy</label>';
-    html_string += '<label><input type="checkbox" value="Rigger" name="user[role]" />Rigger</label>';
-    html_string += '<label><input type="checkbox" value="Rope Top" name="user[role]" />Rope Top</label>';
-    html_string += '<label><input type="checkbox" value="Rope Bottom" name="user[role]" />Rope Bottom</label>';
-    html_string += '<label><input type="checkbox" value="Rope Bunny" name="user[role]" />Rope Bunny</label>';
-    html_string += '<label><input type="checkbox" value="Spanko" name="user[role]" />Spanko</label>';
-    html_string += '<label><input type="checkbox" value="Spanker" name="user[role]" />Spanker</label>';
-    html_string += '<label><input type="checkbox" value="Spankee" name="user[role]" />Spankee</label>';
-    html_string += '<label><input type="checkbox" value="Furry" name="user[role]" />Furry</label>';
-    html_string += '<label><input type="checkbox" value="Leather Man" name="user[role]" />Leather Man</label>';
-    html_string += '<label><input type="checkbox" value="Leather Woman" name="user[role]" />Leather Woman</label>';
-    html_string += '<label><input type="checkbox" value="Leather Daddy" name="user[role]" />Leather Daddy</label>';
-    html_string += '<label><input type="checkbox" value="Leather Top" name="user[role]" />Leather Top</label>';
-    html_string += '<label><input type="checkbox" value="Leather bottom" name="user[role]" />Leather bottom</label>';
-    html_string += '<label><input type="checkbox" value="Leather boy" name="user[role]" />Leather boy</label>';
-    html_string += '<label><input type="checkbox" value="Leather girl" name="user[role]" />Leather girl</label>';
-    html_string += '<label><input type="checkbox" value="Leather Boi" name="user[role]" />Leather Boi</label>';
-    html_string += '<label><input type="checkbox" value="Bootblack" name="user[role]" />Bootblack</label>';
-    html_string += '<label><input type="checkbox" value="Primal" name="user[role]" />Primal</label>';
-    html_string += '<label><input type="checkbox" value="Primal Predator" name="user[role]" />Primal Predator</label>';
-    html_string += '<label><input type="checkbox" value="Primal Prey" name="user[role]" />Primal Prey</label>';
-    html_string += '<label><input type="checkbox" value="Bull" name="user[role]" />Bull</label>';
-    html_string += '<label><input type="checkbox" value="cuckold" name="user[role]" />cuckold</label>';
-    html_string += '<label><input type="checkbox" value="cuckquean" name="user[role]" />cuckquean</label>';
-    html_string += '<label><input type="checkbox" value="Ageplayer" name="user[role]" />Ageplayer</label>';
-    html_string += '<label><input type="checkbox" value="Daddy" name="user[role]" />Daddy</label>';
-    html_string += '<label><input type="checkbox" value="Mommy" name="user[role]" />Mommy</label>';
-    html_string += '<label><input type="checkbox" value="Big" name="user[role]" />Big</label>';
-    html_string += '<label><input type="checkbox" value="Middle" name="user[role]" />Middle</label>';
-    html_string += '<label><input type="checkbox" value="little" name="user[role]" />little</label>';
-    html_string += '<label><input type="checkbox" value="brat" name="user[role]" />brat</label>';
-    html_string += '<label><input type="checkbox" value="babygirl" name="user[role]" />babygirl</label>';
-    html_string += '<label><input type="checkbox" value="babyboy" name="user[role]" />babyboy</label>';
-    html_string += '<label><input type="checkbox" value="pet" name="user[role]" />pet</label>';
-    html_string += '<label><input type="checkbox" value="kitten" name="user[role]" />kitten</label>';
-    html_string += '<label><input type="checkbox" value="pup" name="user[role]" />pup</label>';
-    html_string += '<label><input type="checkbox" value="pony" name="user[role]" />pony</label>';
-    html_string += '<label><input type="checkbox" value="Evolving" name="user[role]" />Evolving</label>';
-    html_string += '<label><input type="checkbox" value="Exploring" name="user[role]" />Exploring</label>';
-    html_string += '<label><input type="checkbox" value="Vanilla" name="user[role]" />Vanilla</label>';
-    html_string += '<label><input type="checkbox" value="Undecided" name="user[role]" />Undecided</label>';
-    html_string += '<label><input type="checkbox" value="" name="user[role]" />Not Applicable</label>';
-    html_string += '</p></fieldset>';
-    html_string += '<fieldset id="fl_asl_search_loc_fieldset"><legend>Search for user profiles located in:</legend><p>';
-    html_string += '&hellip;from ';
-    // If we're on a "groups" or "events" or "user" or "fetish" or "search" page,
-    var which_thing = window.location.toString().match(/(group|event|user|fetish)e?s\/(\d+)/) || window.location.toString().match(/(search)\/kinksters\/?\?(?:page=\d+&)?q=(\S+)/);
-    if (null !== which_thing) {
-        switch (which_thing[1]) {
-            case 'user':
-                var label_text = "user's friends";
-                break;
-            case 'group': // fall through
-            case 'event':
-            case 'fetish':
-            case 'search':
-            default:
-                var label_text = which_thing[1];
-                break;
-        }
-        // offer an additional option to search for users associated with this object rather than geography.
-        html_string += '<label><input type="radio" name="fl_asl_loc" value="' + which_thing[1] + '" data-flasl' + which_thing[1] + 'id="' + which_thing[2] + '"/>this ' + label_text + '</label>';
-        html_string += '<label id="fl_asl_loc_filter_label" style="display: none;"> located in <input type="text" id="fl_asl_loc_filter" name="fl_asl_loc_filter" /></label>';
-        html_string += ', or ';
-    }
-    html_string += ' my <label><input type="radio" name="fl_asl_loc" value="city_id" />city (<span>' + user_loc.locality + '</span>)</label>';
-    html_string += '<label><input type="radio" name="fl_asl_loc" value="area_id" checked="checked" />state/province (<span>' + user_loc.region + '</span>)</label>';
-    html_string += '<label><input type="radio" name="fl_asl_loc" value="country" />country (<span>' + user_loc.country + '</span>)</label>';
-    html_string += '. <abbr title="If you changed the location on your profile, click the &ldquo;Update your location&rdquo; button to set FetLife ASL Search to your new location. You can also choose a search set other than your profile location when you load FetLife ASL Search on certain pages that imply their own search set, such as a user profile (for searching a friends list) a group page (for searching group members) an event (for searching RSVPs), or a fetish (for searching kinksters with that fetish). You can then further filter the results from the friend list, event RSVPs, etc. based on the name of a city, state/province, or country."></abbr></p></fieldset>';
-    html_string += '<fieldset><legend>Result set options:</legend><p>';
-    html_string += '<label>Return at least <input id="fl_asl_min_matches" name="fl_asl_min_matches" value="" placeholder="1" size="2" /> matches per search.</label> (Set this lower if no results seem to ever appear.)';
-    html_string += '</p></fieldset>';
-    html_string += '<fieldset><legend>Search speed options:</legend><p>';
-    html_string += '<label>Online search speed: Aggressive (faster) <input id="fl_asl_search_sleep_interval" name="fl_asl_search_sleep_interval" type="range" min="0" max="10" step="0.5" value="' + FL_ASL.CONFIG.search_sleep_interval + '" /> Stealthy (slower)</label>';
-    html_string += '<br />(Wait <output name="fl_asl_search_sleep_interval" for="fl_asl_search_sleep_interval">' +  FL_ASL.CONFIG.search_sleep_interval + '</output> seconds between searches.) <abbr title="FetLife has begun banning accounts that search with this script too quickly. An aggressive search is faster, but riskier. A stealthier search is slower, but safer."></span>';
-    html_string += '</p></fieldset>';
-    var div = FL_ASL.createSearchTab('fetlife_asl_search_classic', html_string);
-    div.querySelector('input[name="fl_asl_search_sleep_interval"]').addEventListener('input', function (e) {
-        div.querySelector('output[name="fl_asl_search_sleep_interval"]').value = this.value;
-    });
-    // Help buttons
-    FL_UI.Dialog.createLink(
-        'fl_asl_loc-help',
-        '(Update location.)',
-        div.querySelector('#fl_asl_search_loc_fieldset abbr')
-    );
-    html_string = '<p><a id="btn_fetlife_asl_update_location" class="btnsqr close" data-closes-modal="fl_asl_loc-help">Update your location</a></p>';
-    html_string += '<p>' + div.querySelector('#fl_asl_search_loc_fieldset abbr').getAttribute('title') + '</p>';
-    FL_UI.Dialog.inject(
-        'fl_asl_loc-help',
-        'Change location',
-        html_string
-    );
-    document.getElementById('btn_fetlife_asl_update_location').addEventListener('click', FL_ASL.updateUserLocation);
-    FL_UI.Dialog.createLink(
-        'fl_asl_search_sleep_interval-help',
-        '(Help with online search speed.)',
-        div.querySelector('output[name="fl_asl_search_sleep_interval"] + abbr')
-    );
-    FL_UI.Dialog.inject(
-        'fl_asl_search_sleep_interval-help',
-        'About &ldquo;Online search speed&rdquo;',
-        div.querySelector('output[name="fl_asl_search_sleep_interval"] + abbr').getAttribute('title')
-    );
-    container.appendChild(div);
     var maincontent
     maincontent = document.getElementById('maincontent');
     if (maincontent) {
@@ -835,25 +683,6 @@ FL_ASL.attachSearchForm = function () {
 }
     FL_ASL.CONFIG.search_form.appendChild(label);
 
-    var radio_els = document.querySelectorAll('input[name="fl_asl_loc"]');
-    for (var i = 0; i < radio_els.length; i++) {
-        radio_els[i].addEventListener('click', FL_ASL.toggleLocationFilter);
-    }
-
-    btn_submit = document.createElement('button');
-    btn_submit.setAttribute('id', 'btn_fetlife_asl_search_submit');
-    btn_submit.setAttribute('onclick', "var xme = document.getElementById('btn_fetlife_asl_search_submit'); xme.parentNode.removeChild(xme); return false;");
-    btn_submit.innerHTML = 'Mine! (I mean, uh, search&hellip;)';
-    btn_submit.addEventListener('click', FL_ASL.aslSubmit);
-    div.appendChild(btn_submit);
-
-    results_container = document.createElement('div');
-    results_container.setAttribute('id', 'fetlife_asl_search_results');
-    FL_ASL.CONFIG.search_form.appendChild(results_container);
-
-    prog = document.createElement('p');
-    prog.setAttribute('id', FL_ASL.CONFIG.progress_id);
-    FL_ASL.CONFIG.search_form.appendChild(prog);
 
     // Re-attach the search form after page load if for "some reason" it is not here.
     // See https://github.com/meitar/fetlife-aslsearch/issues/27
