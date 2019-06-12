@@ -101,8 +101,8 @@ That said, since this script is public domain, it's entirely use-at-your-own-ris
     * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/9): Fixes GUI glitches
 * Version 0.5.1
     * Note: Actual launch version of 0.5
-* **EXTENDED EDITION (version 0.5)**
-* The "Extended Edition" adds a huge number of features and improves the speed, safety, and ease-of-use of A/S/L-based searches.
+* **Reborn EDITION (version 0.5)**
+* The "Reborn Edition" aims to fix the plugin that has, as of 2019, been broken for 2-3 years.
     * **Fixed: Extended search**
         * Extended search is fully working again
         * Extended search database had to be wiped sadly enough
