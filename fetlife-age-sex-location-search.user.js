@@ -25,9 +25,12 @@
 // ==/UserScript==
 
 FL_UI = {}; // FetLife User Interface module
+
+//TODO for some reason this cant be removed?
 FL_UI.Text = {
     'donation_appeal': ''
 };
+
 FL_UI.Dialog = {};
 FL_UI.Dialog.createLink = function (dialog_id, html_content, parent_node) {
     var trigger_el = document.createElement('a');
@@ -58,17 +61,13 @@ FL_UI.Dialog.inject = function (id, title, html_content) {
     document.body.appendChild(dialog);
 };
 
-FL_ASL = {}; // FetLife ASL Search module
+FL_ASL = {}; // FetLife ASL Search main module
 FL_ASL.CONFIG = {
     'debug': false, // switch to true to debug.
+    //Change these for personal development environment
     'gasapp_url': 'https://script.google.com/macros/s/AKfycbzUFY6t94AxfmbLtBpTUvkjUkAma_j-17rJPPURrkvG6ZR5SPc/exec?embedded=true',
-    'gasapp_url_development': 'https://script.google.com/macros/s/AKfycbwxXfsfwPrEPLeXfVqFDNF0gX9wu0Iwj11Pli3xZYw/dev?embedded=true',
-    'progress_id': 'fetlife_asl_search_progress',
-    'min_matches': 1, // show at least this many matches before offering to search again
-    'search_sleep_interval': 3 // default wait time in seconds between auto-searches
+    'gasapp_url_development': 'https://script.google.com/macros/s/AKfycbwxXfsfwPrEPLeXfVqFDNF0gX9wu0Iwj11Pli3xZYw/dev?embedded=true'
 };
-
-FL_ASL.total_result_count = 0; // How many matches have we found, across all pages, on this load?
 
 // Utility debugging function.
 FL_ASL.log = function (msg) {
@@ -78,6 +77,7 @@ FL_ASL.log = function (msg) {
 
 // XPath Helper function
 // @see http://wiki.greasespot.net/XPath_Helper
+// Is used for scraping
 function $x() {
   var x='';
   var node=document;
@@ -225,6 +225,8 @@ FL_ASL.createActivateSearchButton = function () {
     label.appendChild(input);
     return label;
 };
+
+//Specifies the tabs
 FL_ASL.createTabList = function () {
     var ul = document.createElement('ul');
     ul.setAttribute('class', 'tabs');
@@ -249,6 +251,7 @@ FL_ASL.createTabList = function () {
 FL_ASL.createSearchTab = function (id, html_string) {
     var div = document.createElement('div');
     div.setAttribute('id', id);
+    //TODO for some reason this cant be removed either
     div.innerHTML = html_string + FL_UI.Text.donation_appeal;
     return div;
 };
@@ -260,7 +263,7 @@ FL_ASL.importHtmlString = function (html_string, selector) {
 };
 
 
-
+//This contains the content in the tabs
 FL_ASL.attachSearchForm = function () {
     var html_string;
     var user_loc = FL_ASL.ProfileScraper.getLocation(
@@ -341,6 +344,7 @@ FL_ASL.GAS.ajaxPost = function (data)  {
 //
 // ****************************************************
 FL_ASL.ProfileScraper = {};
+// Profilescraping sub-scraper functions
 FL_ASL.ProfileScraper.getNickname = function () {
     return jQuery('#main_content h2').first().text().split(' ')[0];
 };
@@ -528,6 +532,7 @@ FL_ASL.ProfileScraper.getEventsMaybeGoingTo = function () {
     // TODO:
 };
 
+// This scrapes all data from a profile page
 FL_ASL.scrapeProfile = function (user_id) {
     if (!window.location.pathname.endsWith(user_id)) {
         FL_ASL.log('Profile page does not match ' + user_id);
@@ -565,14 +570,19 @@ FL_ASL.scrapeProfile = function (user_id) {
     };
     return profile_data;
 }
+
+//This scrapes users in a list, for example: Groupmembers
 FL_ASL.scrapeUserInList = function (node) {
     console.log("Scraping user from List");
     var loc_parts = jQuery(node).find('.fl-member-card__location').first().text().split(', ');
     var locality = ''; var region = ''; var country = '';
     if (2 === loc_parts.length) {
+        // adds all countries to determine if something is a country or region
       var countries = ['Afghanistan', 'Aland', 'Islands', 'Albania', 'Algeria', 'American', 'Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica', 'Antigua', 'and', 'Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bonaire', 'Bosnia', 'and', 'Herzegovina', 'Botswana', 'Bouvet', 'Island', 'Brazil', 'British', 'Indian', 'Ocean', 'Territory', 'Brunei', 'Bulgaria', 'Burkina', 'Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Canary', 'Islands', 'Cape', 'Verde', 'Cayman', 'Islands', 'Central', 'African', 'Republic', 'Chad', 'Chile', 'China', 'Christmas', 'Island', 'Cocos', '(Keeling)', 'Islands', 'Colombia', 'Comoros', 'Congo,', 'Democratic', 'Republic', 'of', 'Congo,', 'Republic', 'of', 'Cook', 'Islands', 'Costa', 'Rica', 'Croatia', 'Cuba', 'Curacao', 'Cyprus', 'Czech', 'Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican', 'Republic', 'Ecuador', 'Egypt', 'El', 'Salvador', 'Equatorial', 'Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Falkland', 'Islands', 'Faroe', 'Islands', 'Fiji', 'Finland', 'France', 'French', 'Guiana', 'French', 'Polynesia', 'French', 'Southern', 'Lands', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guadeloupe', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Heard', 'Island', 'and', 'Mcdonald', 'Islands', 'Honduras', 'Hong', 'Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Isle', 'of', 'Man', 'Israel', 'Italy', 'Ivory', 'Coast', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Lybia', 'Macao', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall', 'Islands', 'Martinique', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Netherlands', 'Antilles', 'New', 'Caledonia', 'New', 'Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norfolk', 'Island', 'North', 'Korea', 'Northern', 'Mariana', 'Islands', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua', 'New', 'Guinea', 'Paraguay', 'Peru', 'Philippines', 'Pitcairn', 'Poland', 'Portugal', 'Puerto', 'Rico', 'Qatar', 'Reunion', 'Romania', 'Russia', 'Rwanda', 'Saint', 'Barthélemy', 'Saint', 'Helena', 'Saint', 'Kitts', 'and', 'Nevis', 'Saint', 'Lucia', 'Saint', 'Martin', 'Saint', 'Pierre', 'and', 'Miquelon', 'Saint', 'Vincent', 'Samoa', 'San', 'Marino', 'São', 'Tomé', 'and', 'Príncipe', 'Saudi', 'Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra', 'Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon', 'Islands', 'Somalia', 'South', 'Africa', 'South', 'Georgia', 'and', 'the', 'South', 'Sandwich', 'Islands', 'South', 'Korea', 'South', 'Sudan', 'Spain', 'Sri', 'Lanka', 'Sudan', 'Suriname', 'Svalbard', 'and', 'Jan', 'Mayen', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tokelau', 'Tonga', 'Trinidad', 'and', 'Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks', 'and', 'Caicos', 'Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United', 'Arab', 'Emirates', 'United', 'Kingdom', 'United', 'States', 'United', 'States', 'Minor', 'Outlying', 'Islands', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican', 'City', 'Venezuela', 'Vietnam', 'Virgin', 'Islands,', 'British', 'Virgin', 'Islands,', 'U.S.', 'Wallis', 'and', 'Futuna', 'Western', 'Sahara', 'Yemen', 'Zambia', 'Zimbabwe'];
+      // Fetlife code is dirty as heck, clean up the scraped data before processing
       loc_parts[1] = loc_parts[1].replace(/\n|\r/g, "").trim();
       loc_parts[0] = loc_parts[0].replace(/\n|\r/g, "").trim();
+      // Check of the second part is a region or country
       if (countries.indexOf(loc_parts[1]) !== -1) {
         region = loc_parts[0];
         country = loc_parts[1];
@@ -625,6 +635,7 @@ FL_ASL.main = function () {
 
     var fl_profiles = [];
     var m;
+    //Determine of we are on a scrapable page
     if (m = window.location.pathname.match(/users\/(\d+)/)) {
         FL_ASL.log('Scraping profile ' + m[1]);
         fl_profiles.push(FL_ASL.scrapeProfile(m[1]));
