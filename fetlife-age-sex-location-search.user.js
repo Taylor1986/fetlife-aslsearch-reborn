@@ -5,7 +5,7 @@
  */
 // ==UserScript==
 // @name		   FetLife ASL Search (Reborn Edition)
-// @version		0.5.7
+// @version		0.5.8
 // @namespace	  https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @downloadURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @updateURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
@@ -295,11 +295,21 @@ FL_ASL.attachSearchForm = function () {
     html_string += '</div><!-- #fetlife_asl_search_extended_wrapper -->';
     var newdiv = container.appendChild(FL_ASL.createSearchTab('fetlife_asl_search_extended', html_string));
 
+    //Attatch aslsearch dropdown window
     var maincontent
+    var maincontent2
     maincontent = document.getElementById('maincontent');
+    maincontent2 = document.getElementById('main-content');
+    //Option 1 (example:profilepages)
     if (maincontent) {
     maincontent.parentNode.insertBefore(container, maincontent);
 }
+    //Option 2 (example: friendlists)
+    else if (maincontent2) {
+    maincontent2.parentNode.insertBefore(container, maincontent2);
+}
+
+
     FL_ASL.CONFIG.search_form.appendChild(label);
 
 
@@ -620,11 +630,61 @@ FL_ASL.scrapeUserInList = function (node) {
     }
     return profile_data;
 };
+
+//This scrapes users in a Other list, for example: Location lists
+FL_ASL.scrapeUserInOtherList = function (node) {
+    var loc_parts = jQuery(node).find('div.f6.lh-copy.fw4.silver.nowrap.truncate').first().text().split(', ');
+    var locality = ''; var region = ''; var country = '';
+    if (2 === loc_parts.length) {
+        // adds all countries to determine if something is a country or region
+      var countries = ['Afghanistan', 'Aland', 'Islands', 'Albania', 'Algeria', 'American', 'Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica', 'Antigua', 'and', 'Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bonaire', 'Bosnia', 'and', 'Herzegovina', 'Botswana', 'Bouvet', 'Island', 'Brazil', 'British', 'Indian', 'Ocean', 'Territory', 'Brunei', 'Bulgaria', 'Burkina', 'Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Canary', 'Islands', 'Cape', 'Verde', 'Cayman', 'Islands', 'Central', 'African', 'Republic', 'Chad', 'Chile', 'China', 'Christmas', 'Island', 'Cocos', '(Keeling)', 'Islands', 'Colombia', 'Comoros', 'Congo,', 'Democratic', 'Republic', 'of', 'Congo,', 'Republic', 'of', 'Cook', 'Islands', 'Costa', 'Rica', 'Croatia', 'Cuba', 'Curacao', 'Cyprus', 'Czech', 'Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican', 'Republic', 'Ecuador', 'Egypt', 'El', 'Salvador', 'Equatorial', 'Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Falkland', 'Islands', 'Faroe', 'Islands', 'Fiji', 'Finland', 'France', 'French', 'Guiana', 'French', 'Polynesia', 'French', 'Southern', 'Lands', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guadeloupe', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Heard', 'Island', 'and', 'Mcdonald', 'Islands', 'Honduras', 'Hong', 'Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Isle', 'of', 'Man', 'Israel', 'Italy', 'Ivory', 'Coast', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Lybia', 'Macao', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall', 'Islands', 'Martinique', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Netherlands', 'Antilles', 'New', 'Caledonia', 'New', 'Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norfolk', 'Island', 'North', 'Korea', 'Northern', 'Mariana', 'Islands', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua', 'New', 'Guinea', 'Paraguay', 'Peru', 'Philippines', 'Pitcairn', 'Poland', 'Portugal', 'Puerto', 'Rico', 'Qatar', 'Reunion', 'Romania', 'Russia', 'Rwanda', 'Saint', 'Barthélemy', 'Saint', 'Helena', 'Saint', 'Kitts', 'and', 'Nevis', 'Saint', 'Lucia', 'Saint', 'Martin', 'Saint', 'Pierre', 'and', 'Miquelon', 'Saint', 'Vincent', 'Samoa', 'San', 'Marino', 'São', 'Tomé', 'and', 'Príncipe', 'Saudi', 'Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra', 'Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon', 'Islands', 'Somalia', 'South', 'Africa', 'South', 'Georgia', 'and', 'the', 'South', 'Sandwich', 'Islands', 'South', 'Korea', 'South', 'Sudan', 'Spain', 'Sri', 'Lanka', 'Sudan', 'Suriname', 'Svalbard', 'and', 'Jan', 'Mayen', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tokelau', 'Tonga', 'Trinidad', 'and', 'Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks', 'and', 'Caicos', 'Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United', 'Arab', 'Emirates', 'United', 'Kingdom', 'United', 'States', 'United', 'States', 'Minor', 'Outlying', 'Islands', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican', 'City', 'Venezuela', 'Vietnam', 'Virgin', 'Islands,', 'British', 'Virgin', 'Islands,', 'U.S.', 'Wallis', 'and', 'Futuna', 'Western', 'Sahara', 'Yemen', 'Zambia', 'Zimbabwe'];
+      // Fetlife code is dirty as heck, clean up the scraped data before processing
+      loc_parts[1] = loc_parts[1].replace(/\n|\r/g, "").trim();
+      loc_parts[0] = loc_parts[0].replace(/\n|\r/g, "").trim();
+      // Check of the second part is a region or country
+      if (countries.indexOf(loc_parts[1]) !== -1) {
+        region = loc_parts[0];
+        country = loc_parts[1];
+      } else {
+        locality = loc_parts[0];
+        region = loc_parts[1];
+      }
+    }
+    else if (1 === loc_parts.length) {
+        country = loc_parts[0];
+    }
+    var profile_data = {
+        'user_id': jQuery(node).find('a').first().attr('href').match(/\d+$/)[0],
+        'nickname': jQuery(node).find('a.link.span.f5.fw7.secondary').text().trim(),
+        'location_locality': locality.trim(),
+        'location_region': region.trim(),
+        'location_country': country.trim(),
+        'avatar_url': jQuery(node).find('img').first().attr('src')
+    };
+    var member_info = jQuery(node).find('span.f6.fw7.silver').text().trim();
+    if (member_info.match(/^\d+/) instanceof Array) {
+        profile_data['age'] = member_info.match(/^\d+/)[0].trim();
+    }
+    if (member_info.match(/[^\d ]+/) instanceof Array) {
+        profile_data['gender'] = member_info.match(/[^\d ]+/)[0].trim();
+    }
+    if (member_info.match(/ (.*)$/) instanceof Array) {
+        profile_data['role'] = member_info.match(/ (.*)$/)[1].trim();
+    }
+    for (var k in profile_data) {
+        if ('' === profile_data[k]) {
+            delete profile_data[k];
+        }
+    }
+    return profile_data;
+};
+
+
 FL_ASL.scrapeAnchoredAvatar = function (node) {
     var profile_data = {
-        'user_id': jQuery(node).attr('href').match(/\d+$/)[0],
-        'nickname': jQuery(node).find('img').first().attr('alt'),
-        'avatar_url': jQuery(node).find('img').first().attr('src')
+        'user_id': jQuery(node).parent().first().attr('href').match(/\d+$/)[0],
+        'nickname': jQuery(node).first().attr('alt'),
+        'avatar_url': jQuery(node).first().attr('src')
     };
     return profile_data;
 };
@@ -637,7 +697,7 @@ FL_ASL.main = function () {
     var fl_profiles = [];
     var m;
     //Determine of we are on a scrapable page
-    if (m = window.location.pathname.match(/users\/(\d+)/)) {
+    if (m = window.location.pathname.match(/users\/[0-9]{1,10}$/)) {
         FL_ASL.log('Scraping profile ' + m[1]);
         fl_profiles.push(FL_ASL.scrapeProfile(m[1]));
     }
@@ -646,8 +706,13 @@ FL_ASL.main = function () {
             fl_profiles.push(FL_ASL.scrapeUserInList(this));
         });
     }
-    if (document.querySelectorAll('a.avatar').length) {
-        jQuery('a.avatar').each(function () {
+    if (document.querySelectorAll('div.pv2.pr3.pl2.mb2.br1').length) {
+        jQuery('div.pv2.pr3.pl2.mb2.br1').each(function () {
+            fl_profiles.push(FL_ASL.scrapeUserInOtherList(this));
+        });
+    }
+    if (document.querySelectorAll('img.profile_avatar.avatar').length) {
+        jQuery('img.profile_avatar.avatar').each(function () {
             fl_profiles.push(FL_ASL.scrapeAnchoredAvatar(this));
         });
     }
