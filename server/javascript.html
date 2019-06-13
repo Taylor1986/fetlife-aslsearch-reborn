@@ -1,8 +1,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-3.3.1/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js"></script>
 
 <!-- TODO replace those they are depricated -->
-<script src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.js"></script>
-<script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+<script src="https://cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.js"></script>
+<script src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
 
 <script>
 jQuery(document).ready(function () {
@@ -141,7 +141,8 @@ function handleSearchSuccess (results, interval_id) {
     function buildLinkToFetLife (td, cellData, rowData, row, col) {
       var html = '';
       html += '<a href="https://fetlife.com/users/' + rowData[0] + '" target="_blank">';
-      html += '<img src="' + rowData[10] + '" alt="" class="img-rounded" /><div class="text-center">' + cellData + '</div>';
+      // Hidden due to not working (fetlife checks referer header), dont want them to log 403 errors and ban people
+      //html += '<img src="' + rowData[10] + '" alt="" class="img-rounded" /><div class="text-center">' + cellData + '</div>';
       html += '</a>';
       jQuery(td).html(html);
     }
