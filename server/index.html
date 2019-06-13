@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+  <!-- Includes the CSS containing html file -->
   <?!= include('styles'); ?>
 </head>
 <body>
@@ -12,6 +13,7 @@
     <? } ?>
     <noscript>
       <header>
+        <!-- Error content if Javascript cant be ran -->
         <h1>JavaScript required</h1>
         <p>
           It seems that JavaScript is not running in your browser right now, but FetLife ASL Search Reborn requires it.
@@ -20,8 +22,10 @@
         </p>
       </header>
     </noscript>
+    <!-- Includes the search form -->
     <?!= include('search-form', GET); ?>
   </div><!-- #PageWrapper -->
+   <!-- Includes the javascript html file -->
   <?!= include('javascript'); ?>
 </body>
 </html>
