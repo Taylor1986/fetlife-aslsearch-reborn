@@ -5,7 +5,7 @@
  */
 // ==UserScript==
 // @name		   FetLife ASL Search (Reborn Edition)
-// @version		0.5.6
+// @version		0.5.7
 // @namespace	  https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @downloadURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @updateURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
@@ -295,11 +295,21 @@ FL_ASL.attachSearchForm = function () {
     html_string += '</div><!-- #fetlife_asl_search_extended_wrapper -->';
     var newdiv = container.appendChild(FL_ASL.createSearchTab('fetlife_asl_search_extended', html_string));
 
+    //Attatch aslsearch dropdown window
     var maincontent
+    var maincontent2
     maincontent = document.getElementById('maincontent');
+    maincontent2 = document.getElementById('main-content');
+    //Option 1 (example:profilepages)
     if (maincontent) {
     maincontent.parentNode.insertBefore(container, maincontent);
 }
+    //Option 2 (example: friendlists)
+    else if (maincontent2) {
+    maincontent2.parentNode.insertBefore(container, maincontent2);
+}
+
+
     FL_ASL.CONFIG.search_form.appendChild(label);
 
 
@@ -637,7 +647,7 @@ FL_ASL.main = function () {
     var fl_profiles = [];
     var m;
     //Determine of we are on a scrapable page
-    if (m = window.location.pathname.match(/users\/(\d+)/)) {
+    if (m = window.location.pathname.match(/users\/[0-9]{1,10}$/)) {
         FL_ASL.log('Scraping profile ' + m[1]);
         fl_profiles.push(FL_ASL.scrapeProfile(m[1]));
     }
