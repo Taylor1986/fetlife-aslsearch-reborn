@@ -88,6 +88,11 @@ Still, in a trigger-happy legal environment where people eagerly sue over spille
 That said, since this script is public domain, it's entirely use-at-your-own-risk. There's no warranty or customer service or anything like that, but I'll happily refund the $0 you paid for it. ;)
 
 ## Change log
+* Version 0.5.5
+    * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/27): Fixed progressbar looking like representing progress. Replaces with a "please wait" bar.
+    * [Cleanup](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/7): Removed: most code from legacy search
+    * [Cleanup](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/19): Removed: Donation request on bottom of every tab. Moved to first tab only
+    * [Feature Hidden](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/19): Hidden: Bitcoin button hidden till I have bitcoin
 * Version 0.5.4
     * [Feature Hidden](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/7): Legacy search is hidden due to fetlife banhammer and numerous bugs
     * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/15): Fixed processing of Avatar url's for extended search. Still cant display them in results
@@ -101,8 +106,8 @@ That said, since this script is public domain, it's entirely use-at-your-own-ris
     * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/9): Fixes GUI glitches
 * Version 0.5.1
     * Note: Actual launch version of 0.5
-* **EXTENDED EDITION (version 0.5)**
-* The "Extended Edition" adds a huge number of features and improves the speed, safety, and ease-of-use of A/S/L-based searches.
+* **Reborn EDITION (version 0.5)**
+* The "Reborn Edition" aims to fix the plugin that has, as of 2019, been broken for 2-3 years.
     * **Fixed: Extended search**
         * Extended search is fully working again
         * Extended search database had to be wiped sadly enough
