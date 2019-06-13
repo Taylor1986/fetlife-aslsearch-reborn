@@ -4,24 +4,24 @@
  * @author ornias1993 <kjeld@schouten-lebbing.nl>
  */
 // ==UserScript==
-// @name           FetLife ASL Search (Reborn Edition)
-// @version        0.5.4
-// @namespace      https://github.com/Ornias1993/fetlife-aslsearch-reborn
-// @updateURL      https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
-// @description    Allows you to search for FetLife profiles based on age, sex, location, and role.
-// @require        https://code.jquery.com/jquery-2.1.4.min.js
-// @include        https://fetlife.com/*
-// @exclude        https://fetlife.com/adgear/*
-// @exclude        https://fetlife.com/chat/*
-// @exclude        https://fetlife.com/im_sessions*
-// @exclude        https://fetlife.com/polling/*
-// @grant          GM_log
-// @grant          GM_xmlhttpRequest
-// @grant          GM_addStyle
-// @grant          GM_getValue
-// @grant          GM_setValue
-// @grant          GM_deleteValue
-// @grant          GM_openInTab
+// @name		   FetLife ASL Search (Reborn Edition)
+// @version		0.5.4
+// @namespace	  https://github.com/Ornias1993/fetlife-aslsearch-reborn
+// @updateURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
+// @description	Allows you to search for FetLife profiles based on age, sex, location, and role.
+// @require		https://code.jquery.com/jquery-2.1.4.min.js
+// @include		https://fetlife.com/*
+// @exclude		https://fetlife.com/adgear/*
+// @exclude		https://fetlife.com/chat/*
+// @exclude		https://fetlife.com/im_sessions*
+// @exclude		https://fetlife.com/polling/*
+// @grant		  GM_log
+// @grant		  GM_xmlhttpRequest
+// @grant		  GM_addStyle
+// @grant		  GM_getValue
+// @grant		  GM_setValue
+// @grant		  GM_deleteValue
+// @grant		  GM_openInTab
 // ==/UserScript==
 
 FL_UI = {}; // FetLife User Interface module
@@ -655,32 +655,32 @@ FL_ASL.main = function () {
 /*global document, DOMParser*/
 
 (function(DOMParser) {
-	"use strict";
+    "use strict";
 
-	var
-	  DOMParser_proto = DOMParser.prototype
-	, real_parseFromString = DOMParser_proto.parseFromString
-	;
+    var
+      DOMParser_proto = DOMParser.prototype
+    , real_parseFromString = DOMParser_proto.parseFromString
+    ;
 
-	// Firefox/Opera/IE throw errors on unsupported types
-	try {
-		// WebKit returns null on unsupported types
-		if ((new DOMParser).parseFromString("", "text/html")) {
-			// text/html parsing is natively supported
-			return;
-		}
-	} catch (ex) {}
+    // Firefox/Opera/IE throw errors on unsupported types
+    try {
+        // WebKit returns null on unsupported types
+        if ((new DOMParser).parseFromString("", "text/html")) {
+            // text/html parsing is natively supported
+            return;
+        }
+    } catch (ex) {}
 
-	DOMParser_proto.parseFromString = function(markup, type) {
-		if (/^\s*text\/html\s*(?:;|$)/i.test(type)) {
-			var
-			  doc = document.implementation.createHTMLDocument("")
-			;
+    DOMParser_proto.parseFromString = function(markup, type) {
+        if (/^\s*text\/html\s*(?:;|$)/i.test(type)) {
+            var
+              doc = document.implementation.createHTMLDocument("")
+            ;
 
-			doc.body.innerHTML = markup;
-			return doc;
-		} else {
-			return real_parseFromString.apply(this, arguments);
-		}
-	};
+            doc.body.innerHTML = markup;
+            return doc;
+        } else {
+            return real_parseFromString.apply(this, arguments);
+        }
+    };
 }(DOMParser));

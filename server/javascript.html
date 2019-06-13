@@ -13,7 +13,7 @@ jQuery(document).ready(function () {
     jQuery('#search-progress').fadeIn()
       .find('.progress-bar')
       .removeClass('progress-bar-success');
-    setProgressBar(1);
+    setProgressBar(500);
     var interval_id = window.setInterval(setProgressBar, 500);
     jQuery('#search-form header, #search-form section').each(function () {
       jQuery(this).slideUp();
@@ -100,6 +100,8 @@ function setProgressBar (n) {
 function handleSearchSuccess (results, interval_id) {
   window.clearInterval(interval_id);
   setProgressBar(100);
+  jQuery('#search-header-success')
+    .fadeOut();
   jQuery('#search-progress .progress-bar')
     .addClass('progress-bar-success')
     .parent()
