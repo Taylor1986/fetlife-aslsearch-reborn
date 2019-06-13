@@ -62,7 +62,7 @@ FL_ASL = {}; // FetLife ASL Search module
 FL_ASL.CONFIG = {
     'debug': false, // switch to true to debug.
     'gasapp_url': 'https://script.google.com/macros/s/AKfycbzUFY6t94AxfmbLtBpTUvkjUkAma_j-17rJPPURrkvG6ZR5SPc/exec?embedded=true',
-    'gasapp_url_development': 'https://script.google.com/macros/s/AKfycbxl668Zzz6FW9iLMqtyP_vZYkvqOJK3ZKX308fMcCc/dev?embedded=true',
+    'gasapp_url_development': 'https://script.google.com/macros/s/AKfycbwxXfsfwPrEPLeXfVqFDNF0gX9wu0Iwj11Pli3xZYw/dev?embedded=true',
     'progress_id': 'fetlife_asl_search_progress',
     'min_matches': 1, // show at least this many matches before offering to search again
     'search_sleep_interval': 3 // default wait time in seconds between auto-searches
