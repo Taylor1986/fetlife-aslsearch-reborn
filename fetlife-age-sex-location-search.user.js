@@ -5,7 +5,7 @@
  */
 // ==UserScript==
 // @name		   FetLife ASL Search (Reborn Edition)
-// @version		0.5.5
+// @version		0.5.6
 // @namespace	  https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @updateURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @description	Allows you to search for FetLife profiles based on age, sex, location, and role.
