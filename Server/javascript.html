@@ -1,10 +1,17 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-3.3.1/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js"></script>
-
-<!-- TODO replace those they are depricated -->
-<script src="https://cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.js"></script>
-<script src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 
 <script>
+//Actions executed when one clicks search
+//TODO remove most of the progressbar code, now that it doesnt fill anymore?
 jQuery(document).ready(function () {
   jQuery('[data-toggle="popover"]').popover();
   jQuery('#search-form-submit').on('click', function () {
@@ -71,6 +78,7 @@ jQuery(document).ready(function () {
   });
 });
 
+//Behaviour of reset button
 function resetSearchForm () {
   var form = jQuery('#search-form');
   form.find('[name="offset"]').val(0);
@@ -88,6 +96,8 @@ function resetSearchForm () {
   });
 };
 
+//Describes the progressbar changes if progressbar fill is used
+//TODO remove now that we dont use progressbar fill?
 function setProgressBar (n) {
   var bar = jQuery('#search-progress .progress-bar');
   var n = n || parseInt(bar.attr('aria-valuenow'));
@@ -97,6 +107,7 @@ function setProgressBar (n) {
   bar.find('.sr-only').text(x + '% Complete');
 }
 
+//Actions executed once search is finished. 
 function handleSearchSuccess (results, interval_id) {
   window.clearInterval(interval_id);
   setProgressBar(100);
@@ -157,6 +168,7 @@ function handleSearchSuccess (results, interval_id) {
     'orderable': false,
     'searchable': false,
     'className': 'all',
+    //Right side buttons
     'data': function (row, type, set, meta) {
       var html = '<div class="search-result-actions btn-group btn-group-vertical">';
       html += '<a href="https://fetlife.com/conversations/new?with=' + row[0] + '" class="btn btn-success btn-xs" target="_blank">Message ' + row[1] + ' via FetLife</a>';
@@ -171,6 +183,7 @@ function handleSearchSuccess (results, interval_id) {
     }
   });
 
+  //DataTable settings to use for results
   var dataset = results.slice(1);
   var table=('#search-results').empty
   table = jQuery('#search-results').DataTable({
@@ -178,22 +191,16 @@ function handleSearchSuccess (results, interval_id) {
     'data': dataset,
     'columns': columns,
     'responsive': true,
-    'dom': 'TC<"clear">lfrtip',
+    'dom': 'Bfrtip',
+    'buttons': [
+        'colvis', 'print', {
+            extend: 'excel',
+            filename: 'ASLSearch'
+        }, 'pdf'
+    ],
     'language': {
       'search': 'Filter batch results:'
-    },
-    'colVis': {
-      'restore': 'Restore default view',
-      'showAll': 'Show all'
-    },
-    'tableTools': {
-      // TODO: This "sSwfPath" option won't load?
-      'sSwfPath': '//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls.swf',
-      'aButtons': [
-        'print'
-      ]
-    }
-  });
+    }});
 
   function updateFormUI () {
     var offset = parseInt(jQuery('#search-form [name="offset"]').val());
