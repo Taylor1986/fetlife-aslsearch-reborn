@@ -123,8 +123,8 @@ function handleSearchSuccess (results) {
   var columns = [];
   results[0].forEach(function (col_name) {
     var cell_funcs_map = {
-      'Nickname' : buildLinkToFetLife,
-      'Avatar URL': linkify
+      'Nickname' : linkify,
+      'Avatar URL': buildLinkToFetLife
     };
     var c = {
       'title': col_name,
