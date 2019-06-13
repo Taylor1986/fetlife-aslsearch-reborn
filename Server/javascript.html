@@ -128,15 +128,13 @@ function handleSearchSuccess (results) {
     };
     var c = {
       'title': col_name,
-      'visible': (isVisibleColumn(col_name)) ? true : false,
-      'className': (isVisibleColumn(col_name)) ? null : getColClassName(col_name),
+      'visible': true,
+      'className': null,
       'createdCell': (undefined === cell_funcs_map[col_name]) ? null : cell_funcs_map[col_name]
     };
     columns.push(c);
 
-    function isVisibleColumn (col_name) {
-      return jQuery("#search-form [name=\"show[]\"][value=\"" + col_name.replace('"Active"', '\\"Active\\"') + '"]').prop('checked');
-    }
+
     function getColClassName (col_name) {
       switch (col_name) {
         case 'Avatar URL':
