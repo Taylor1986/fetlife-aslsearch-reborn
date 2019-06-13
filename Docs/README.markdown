@@ -28,9 +28,9 @@ If you use the [Google Chrome](https://chrome.google.com/) web browser (version 
 
 To install FetLife Age/Sex/Location Search, go to [https://github.com/Ornias1993/fetlife-aslsearch-reborn/](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases) and copy the content to a new "Tamper Monkey" script.
 
-> [Download and install FetLife Age/Sex/Location Search](https://github.com/Ornias1993/fetlife-aslsearch-reborn/blob/master/fetlife-age-sex-location-search.user.js)
+> [Download and install FetLife Age/Sex/Location Search](https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js)
 
-Alternatively go to [the GreasyFork.org page for FetLife Age/Sex/Location Search](https://greasyfork.org/nl/scripts/385261-fetlife-asl-search-reborn-edition) and click on "[Install this script](https://greasyfork.org/scripts/2679-fetlife-asl-search/code/FetLife%20ASL%20Search.user.js)". If the script is also unavailable at GreasyFork.org, you can download and install it directly from [GitHub.com](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases).
+Alternatively go to [the GreasyFork.org page for FetLife Age/Sex/Location Search](https://greasyfork.org/nl/scripts/385261-fetlife-asl-search-reborn-edition) and click on "[Install this script](https://greasyfork.org/scripts/2679-fetlife-asl-search/code/FetLife%20ASL%20Search.user.js)". If the script is also unavailable at GreasyFork.org, you can download and install it directly from [GitHub.com Releases](https://github.com/Ornias1993/fetlife-aslsearch-reborn/releases).
 
 ## Using
 
