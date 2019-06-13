@@ -21,13 +21,11 @@ jQuery(document).ready(function () {
       .find('.progress-bar')
       .removeClass('progress-bar-success');
     setProgressBar(500);
-    var interval_id = window.setInterval(setProgressBar, 500);
     jQuery('#search-form header, #search-form section').each(function () {
       jQuery(this).slideUp();
     });
     google.script.run
       .withSuccessHandler(handleSearchSuccess)
-      .withUserObject(interval_id)
       .processSearchForm(document.getElementById('search-form'));
   });
 
@@ -108,9 +106,7 @@ function setProgressBar (n) {
 }
 
 //Actions executed once search is finished. 
-function handleSearchSuccess (results, interval_id) {
-  window.clearInterval(interval_id);
-  setProgressBar(100);
+function handleSearchSuccess (results) {
   jQuery('#search-header-success')
     .fadeOut();
   jQuery('#search-progress .progress-bar')
