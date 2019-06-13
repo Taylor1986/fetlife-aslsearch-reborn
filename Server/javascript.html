@@ -123,20 +123,18 @@ function handleSearchSuccess (results) {
   var columns = [];
   results[0].forEach(function (col_name) {
     var cell_funcs_map = {
-      'Nickname' : buildLinkToFetLife,
-      'Avatar URL': linkify
+      'Nickname' : linkify,
+      'Avatar URL': buildLinkToFetLife
     };
     var c = {
       'title': col_name,
-      'visible': (isVisibleColumn(col_name)) ? true : false,
-      'className': (isVisibleColumn(col_name)) ? null : getColClassName(col_name),
+      'visible': true,
+      'className': null,
       'createdCell': (undefined === cell_funcs_map[col_name]) ? null : cell_funcs_map[col_name]
     };
     columns.push(c);
 
-    function isVisibleColumn (col_name) {
-      return jQuery("#search-form [name=\"show[]\"][value=\"" + col_name.replace('"Active"', '\\"Active\\"') + '"]').prop('checked');
-    }
+
     function getColClassName (col_name) {
       switch (col_name) {
         case 'Avatar URL':
@@ -197,7 +195,13 @@ function handleSearchSuccess (results) {
     'language': {
       'search': 'Filter batch results:'
     }});
-
+    
+  //Default hide: UserID, Paid user, avatarurl and interestlevel
+  table.column( 0 ).visible( false );
+  table.column( 6 ).visible( false );
+  table.column( 10 ).visible( false );
+  table.column( 12 ).visible( false );
+  
   function updateFormUI () {
     var offset = parseInt(jQuery('#search-form [name="offset"]').val());
     var limit = parseInt(jQuery('#search-form [name="limit"]').val());
