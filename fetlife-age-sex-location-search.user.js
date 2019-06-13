@@ -682,9 +682,9 @@ FL_ASL.scrapeUserInOtherList = function (node) {
 
 FL_ASL.scrapeAnchoredAvatar = function (node) {
     var profile_data = {
-        'user_id': jQuery(node).attr('href').match(/\d+$/)[0],
-        'nickname': jQuery(node).find('img').first().attr('alt'),
-        'avatar_url': jQuery(node).find('img').first().attr('src')
+        'user_id': jQuery(node).parent().first().attr('href').match(/\d+$/)[0],
+        'nickname': jQuery(node).first().attr('alt'),
+        'avatar_url': jQuery(node).first().attr('src')
     };
     return profile_data;
 };
@@ -711,8 +711,8 @@ FL_ASL.main = function () {
             fl_profiles.push(FL_ASL.scrapeUserInOtherList(this));
         });
     }
-    if (document.querySelectorAll('a.avatar').length) {
-        jQuery('a.avatar').each(function () {
+    if (document.querySelectorAll('img.profile_avatar.avatar').length) {
+        jQuery('img.profile_avatar.avatar').each(function () {
             fl_profiles.push(FL_ASL.scrapeAnchoredAvatar(this));
         });
     }
