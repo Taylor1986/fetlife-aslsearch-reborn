@@ -152,7 +152,7 @@ function handleSearchSuccess (results) {
       jQuery(td).html(html);
     }
     function linkify (td, cellData, rowData, row, col) {
-      jQuery(td).html('<a href="' + cellData + '" target="_blank">' + cellData + '</a>');
+      jQuery(td).html('<a href="https://fetlife.com/users/' + rowData[0] + '" target="_blank">' + cellData + '</a>');
     }
   });
 
