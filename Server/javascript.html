@@ -195,7 +195,13 @@ function handleSearchSuccess (results) {
     'language': {
       'search': 'Filter batch results:'
     }});
-
+    
+  //Default hide: UserID, Paid user, avatarurl and interestlevel
+  table.column( 0 ).visible( false );
+  table.column( 6 ).visible( false );
+  table.column( 10 ).visible( false );
+  table.column( 12 ).visible( false );
+  
   function updateFormUI () {
     var offset = parseInt(jQuery('#search-form [name="offset"]').val());
     var limit = parseInt(jQuery('#search-form [name="limit"]').val());
