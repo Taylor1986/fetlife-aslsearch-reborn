@@ -88,6 +88,11 @@ Still, in a trigger-happy legal environment where people eagerly sue over spille
 That said, since this script is public domain, it's entirely use-at-your-own-risk. There's no warranty or customer service or anything like that, but I'll happily refund the $0 you paid for it. ;)
 
 ## Change log
+* Version 0.5.5
+    * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/27): Fixed progressbar looking like representing progress. Replaces with a "please wait" bar.
+    * [Cleanup](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/7): Removed: most code from legacy search
+    * [Cleanup](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/19): Removed: Donation request on bottom of every tab. Moved to first tab only
+    * [Feature Hidden](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/19): Hidden: Bitcoin button hidden till I have bitcoin
 * Version 0.5.4
     * [Feature Hidden](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/7): Legacy search is hidden due to fetlife banhammer and numerous bugs
     * [Bugfix](https://github.com/Ornias1993/fetlife-aslsearch-reborn/issues/15): Fixed processing of Avatar url's for extended search. Still cant display them in results
