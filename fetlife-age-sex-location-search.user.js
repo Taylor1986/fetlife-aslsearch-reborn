@@ -5,7 +5,7 @@
  */
 // ==UserScript==
 // @name		   FetLife ASL Search (Reborn Edition)
-// @version		0.5.7
+// @version		0.5.8
 // @namespace	  https://github.com/Ornias1993/fetlife-aslsearch-reborn
 // @downloadURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
 // @updateURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-search.user.js
