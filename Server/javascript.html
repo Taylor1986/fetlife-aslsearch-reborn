@@ -193,11 +193,23 @@ function handleSearchSuccess (results) {
     'columns': columns,
     'responsive': true,
     'dom': 'Bfrtip',
+    'columnDefs': [
+            {
+                targets: 16,
+                className: 'noVis'
+            }
+        ],
     'buttons': [
-        'colvis', 'print', {
+            {
+                extend: 'colvis',
+                columns: ':not(.noVis)'
+            }, 
+            'print', 
+            {
             extend: 'excel',
             filename: 'ASLSearch'
-        }, 'pdf'
+            }, 
+           'pdf'
     ],
     'language': {
       'search': 'Filter batch results:'
