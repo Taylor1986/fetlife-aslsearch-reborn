@@ -45,27 +45,7 @@ In all cases you might/will get a warning from tampermonkey when you open fetlif
 
 ## Using
 
-To use FetLife Age/Sex/Location Search, [log in to your FetLife.com account](https://fetlife.com/login) and click the "A/S/L?" checkbox in the top navigation bar, near the Search box.
-
-![Screenshot of modified FetLife toolbar with the "A/S/L?" add-on installed.](http://i.imgur.com/h3Ahsvg.png)
-
-The "Extended A/S/L search" tab will appear:
-
-![Screenshot of the "Extended A/S/L search" tab with all its panels closed.](http://i.imgur.com/1eOGxC0.png)
-
-In the "Extended A/S/L search" tab, there are four panels that you can open to modify your search criteria. You can ignore any panel you don't care about. Clicking a panel name will expand it to reveal the options within. For example, clicking on "Search by Age/Sex/Location" will allow you to select search criteria for age, gender/sex, location, sexual orientation, and/or sexual role. Click on the "Help" buttons to the right of any option or panel to view a pop-over with additional instructions. Clicking anywhere outside the pop-over will close the help text again.
-
-![Screenshot of help text explaining how to choose an age range.](http://i.imgur.com/dizoig6.png)
-
-To expand the search interface, click the "Enlarge" button at the top-left of the FetLife A/S/L Search options. The button will move to the top-left of your browser window, the search interface will expand to fit the available space, and the button's text will change to "Close FetLife A/S/L Search." Clicking on it again will return you to the FetLife page you were browsing.
-
-When you've selected your search criteria, click "Search." The search panels will disappear and a progress bar will appear. When the progress bar turns green, the first batch of your search request is complete and you will be presented with a sortable table that displays profile avatars, nicknames, and any other account information relevant to your search. To view additional information about a profile, click the green plus button (+) to the left of the user's nickname.
-
-![Screenshot of search result.](http://i.imgur.com/V5ywl32.png)
-
-Due to the sheer number of profiles FetLife A/S/L Search (Reborn) is able to search and the speed with which it can do so, results are both batched and paged. If your search query returns many results, you will see a pagination control at the bottom of the search results table that will allow you to page through the batch. You can also filter the batch using the "Filter results batch" text field at the top-right of the table. After the first result batch is presented to you, the "Search" button becomes a "Show batch number 2" button. Clicking on it again requests the second batch from your  search.
-
-To start a new search, click the "Reset" button.
+For useage instructions, please see our [GitHub](https://github.com/Ornias1993/fetlife-aslsearch-reborn)
 
 ## FAQ
 Our frequently Asked Questions reside on our [Wiki](https://github.com/Ornias1993/fetlife-aslsearch-reborn/wiki/FAQ)
