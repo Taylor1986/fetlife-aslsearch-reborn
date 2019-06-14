@@ -132,6 +132,12 @@ function handleSearchSuccess (results) {
       'className': null,
       'createdCell': (undefined === cell_funcs_map[col_name]) ? null : cell_funcs_map[col_name]
     };
+    if(c.title == "Locality"){
+    c.title = "City";
+    } 
+    if(c.title == "Region"){
+    c.title = "State/Province";
+    } 
     columns.push(c);
 
 
@@ -148,12 +154,13 @@ function handleSearchSuccess (results) {
       html += '<a href="https://fetlife.com/users/' + rowData[0] + '" target="_blank">';
       // Hidden due to not working (fetlife checks referer header), dont want them to log 403 errors and ban people
       //html += '<img src="' + rowData[10] + '" alt="" class="img-rounded" /><div class="text-center">' + cellData + '</div>';
-      html += '</a>';
+      html += + cellData + '</a>';
       jQuery(td).html(html);
     }
     function linkify (td, cellData, rowData, row, col) {
       jQuery(td).html('<a href="https://fetlife.com/users/' + rowData[0] + '" target="_blank">' + cellData + '</a>');
     }
+    
   });
 
   // Add column for actions
