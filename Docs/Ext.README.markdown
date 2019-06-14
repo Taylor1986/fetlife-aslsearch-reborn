@@ -1,7 +1,6 @@
 # FetLife Age/Sex/Location Search (Reborn Edition)
-[![GitHub last commit](https://img.shields.io/github/last-commit/ornias1993/fetlife-aslsearch-reborn.svg)](https://github.com/ornias1993/fetlife-aslsearch-reborn/commits/develop) [![Krihelimeter](http://www.krihelinator.xyz/badge/ornias1993/fetlife-aslsearch-reborn)](http://www.krihelinator.xyz/repositories/ornias1993/fetlife-aslsearch-reborn)[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![GitHub last commit](https://img.shields.io/github/last-commit/ornias1993/fetlife-aslsearch-reborn.svg)](https://github.com/ornias1993/fetlife-aslsearch-reborn/commits/develop) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 <br>
-![built-with-resentment](http://forthebadge.com/images/badges/built-with-resentment.svg) ![contains-technical-debt](http://forthebadge.com/images/badges/contains-technical-debt.svg)
 
 The FetLife Age/Sex/Location Search user script allows you to search for profiles on [FetLife](https://fetlife.com/) by age, sex, location, sexual role, sexual orientation, profile bio (a user's "About Me" section), listed fetishes, what they've entered for "Looking For," and much, much more. This user script implements and then extends what is, as of this writing, the [most popular suggestion in the FetLife suggestion box](https://fetlife.com/improvements/78):
 
