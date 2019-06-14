@@ -294,14 +294,20 @@ function buildQuery (params) {
           }
           query += ')';
           break;
-        case 'location':
-          var loc_cols = ['I', 'J', 'K'];
-          query += ' and (';
-          for (var i in loc_cols) {
-            query += loc_cols[i] + '="' + params[x] + '"';
-            if (i < loc_cols.length - 1) { query += ' or '; }
+        case 'location_locality':
+          if (params[x]) {
+            query += ' and I=' + " '" + params[x] + "'";
           }
-          query += ')';
+          break;
+        case 'location_region':
+          if (params[x]) {
+            query += ' and J=' + " '" + params[x] + "'";
+          }
+          break;
+        case 'location_country':
+          if (params[x]) {
+            query += ' and K=' + " '" + params[x] + "'";
+          }
           break;
         case 'user[type]':
           if (params[x]) {
