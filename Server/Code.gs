@@ -1,8 +1,7 @@
 /**
  * FetLife ASL Search Server
  *
- * @author <a href="https://maybemaimed.com/tag/fetlife/">maymay</a>
- * @author2 <a href="https://github.com/Ornias1993">Ornias1993</a>
+ * @author <a href="https://github.com/Ornias1993">Ornias1993</a>
  */
 
 
@@ -29,22 +28,9 @@ function doPost (e) {
   }
   for (var profile in profiles) {
     var profile_data = validateScraperInput(profiles[profile]);
-    var volume_number = lookupVolumeNumberByUserId(profile_data.user_id);
-    if (isNaN(volume_number)) {
-      debugLog('Volume number for user ID ' + profile_data.user_id + ' is NaN, skipping.');
-      continue;
-    }
-    var ss_id = getSpreadsheetIdByVolumeNumber(volume_number);
-    var ss;
-    try {
-      ss = SpreadsheetApp.openById(ss_id);
-    } catch (ex) {
-      debugLog('No spreadsheet with ID ' + ss_id + ', creating a new one');
-      ss = createSpreadsheetForVolume(volume_number);
-    }
-    sheet = ss.getSheetByName(CONFIG.db_sheet_name);
-    var result = saveProfileData(sheet, profile_data);
-    result.coords.vol = volume_number;
+    var result = saveProfileData(profile_data);
+    console.log(result);
+
     response.push(result);
   }
   return ContentService.createTextOutput(JSON.stringify(response))
@@ -59,7 +45,12 @@ function doPost (e) {
  */
 function validateScraperInput (obj) {
   var safe_obj = {};
+  
   for (var k in obj) {
+    if(typeof obj[k] == 'string'){
+      mysql_real_escape_string(obj[k]);
+    } 
+    
     switch (k) {
       case 'user_id':
       case 'age':
@@ -98,81 +89,81 @@ function validateScraperInput (obj) {
  * @return {TextOutput} A TextOutput object with the appropriate MIME type.
  */
 function doQuery (e) {
-  e.parameter.tq = e.parameter.tq || '';
-  e.parameter.prefix = e.parameter.prefix || 'google.visualization.Query.setResponse';
-  var result = queryAllSpreadsheets(e.parameter.tq, e.parameter.format);
-
-  var output;
-  switch (e.parameter.format) {
-    case 'csv':
-      output = ContentService.createTextOutput();
-      for (row in result) {
-        for (cell in result[row]) {
-          result[row][cell] = '"' + result[row][cell].replace(/"/g, '\\"') + '"';
-        }
-        output.append(result[row].join(',') + "\n");
-      }
-      output.setMimeType(ContentService.MimeType.CSV).downloadAsFile('data.csv');
-    break;
-    case 'json':
-      output = ContentService.createTextOutput(JSON.stringify(result))
-          .setMimeType(ContentService.MimeType.JSON);
-      break;
-    case 'jsonp':
-    default:
-      output = ContentService.createTextOutput(e.parameter.prefix + '(' + JSON.stringify(result) + ');')
-        .setMimeType(ContentService.MimeType.JAVASCRIPT);
-    break;
-  }
+  //Depricated, needs to be remade almost completely
   return output;
 }
 
 /**
- * Adds data to a spreadsheet.
+ * Adds data the Database.
  *
- * @param {Sheet} sheet The Google Sheet to add data to.
- * @param {Object} data An object with named properties to add to the sheet.
+ * @param {Object} data An object with named properties.
  * @return {Object}
  */
-function saveProfileData (sheet, data) {
-  // Prepare cell values.
-  for (var key in data) {
-    if (data[key] instanceof Array) {
-      if (0 === data[key].length) { data[key] = ''; }
-      else {
-        // prepend an apostrophe to prevent Google Sheets from auto-formatting
-        data[key] = "'" + data[key].join(',');
-      }
-    }
+function saveProfileData (data) {
+  // check if userentry already exists
+  var row_index = GetFromDB ("SELECT User_ID FROM UserData where User_ID= " + data.user_id)
+  
+  //if not already here, dont update, add new
+  if (!row_index[1]) {
+  var insert = requestInsert(data);
+  return insert
   }
 
-  // Lookup the destination coordinates of the data POST'ed to us.
-  // TODO: Can this be optimized without losing per-cell precision?
-  var row_index = lookupRowByUserId(sheet, data.user_id);
-  if (!row_index) {
-    row_index = sheet.getLastRow() + 1;
+  else if (row_index[1]) {
+  var update = requestUpdate(data);
+  return update
   }
-  var range = sheet.getRange(row_index, 1);
-  range.setValue(Date.now()); // update the last scrape time
-  var cols = [];
+
+  else{
+   return {
+    'DB_Response': "Cant Process",
+    'for_User' : data.user_id
+  };
+}
+}
+
+/**
+ * Creates an Array from scraperdata to send to SQL Insert processor
+ */
+
+function requestInsert(data){
+  var toInsert = [[]];
+  toInsert.push([]);
+
+  //creates array of data to write away
   for (var key in data) {
-    var col_name = CONFIG.Fields.headings_nicename[CONFIG.Fields.headings.indexOf(key)];
-    var col_index = lookupColumnByName(sheet, col_name);
-    cols.push(col_index);
-    debugLog(
-      'Writing cell value to spreadsheet '
-      + sheet.getParent().getId() + ' at ' + row_index + ',' + col_index
-      + ' ("' + key + '" : "' + data[key] + '")'
-    );
-    range = sheet.getRange(row_index, col_index);
-    range.setValue(data[key]);
-  }
-  return {
-    'status': "ok",
-    'coords': {
-      'row': row_index,
-      'col': cols
+    toInsert[0].push(key);
+    toInsert[1].push(data[key]);
+    
     }
+  var response = InsertToDB(data.user_id, toInsert);
+    
+  return {
+    'DB_Response': "Added",
+    'for_User' : response
+  };
+}
+
+
+/**
+ * Creates an Array from scraperdata to send to SQL Update processor
+ */
+
+function requestUpdate(data){
+  var toUpdate = [[]];
+  toUpdate.push([]);
+  //creates list of data to write away
+  for (var key in data) {
+    toUpdate[0].push(key);
+    toUpdate[1].push(data[key]);
+    
+    }
+  var response = UpdateToDB(data.user_id, toUpdate);
+  
+
+   return {
+    'DB_Response': "Updated",
+    'for_User' : response
   };
 }
 
@@ -180,69 +171,96 @@ function saveProfileData (sheet, data) {
  * Handler for the main search form.
  */
 function processSearchForm (form_object) {
-  return queryAllSpreadsheets(buildQuery(form_object), 'csv');
+  return GetFromDB (buildDSQLQuery(form_object));
 }
 
 /**
- * Constructs a Google Query Language query appropriate to a GViz search.
- *
- * @param {object} params Parameters passed from the client.
- * @return {string} A Google Query Language query matching the parameters.
+ * Creates SQL query from search form input.
  */
-function buildQuery (params) {
+function buildDSQLQuery (params) {
   // always add "where C is not null" to the query to avoid getting inactive user IDs
-  var query = 'select B, C, D, E, F, G, H, I, J, K, L, M, N, O, W, X where C is not null';
+  var query = 'select user_id, nickname, age, gender, role, friend_count, paid_account, location_locality, location_region, location_country, avatar_url, sexual_orientation, interest_level, looking_for, num_pics, num_vids FROM UserData where nickname is not null';
   for (var x in params) {
     if (params[x]) {
       switch (x) {
         case 'nickname[search]':
-          query += ' and C ' + params['nickname[operator]'] + " '" + params[x] + "'";
+          if(params['nickname[operator]'] == "matches"){
+          query += " and nickname= '" + params[x] + "'";
           break;
+          }
+          else{
+          query += ' and nickname ' + params['nickname[operator]'] + ' "' + params[x] + '"';
+          break
+          }
         case 'user[bio]':
-          query += ' and R ' + params['user[bio][operator]'] + ' "' + params[x] + '"';
+          if(params['bio[operator]'] == "matches"){
+          query += " bio= '" + params[x] + "'";
           break;
+          }
+          else{
+          query += ' and bio ' + params['user[bio][operator]'] + ' "' + params[x] + '"';
+          break
+          }
         case 'user[websites]':
-          query += ' and S ' + params['user[websites][operator]'] + ' "' + params[x] + '"';
+          if(params['websites[operator]'] == "matches"){
+          query += " websites= '" + params[x] + "'";
           break;
+          }
+          else{
+          query += ' and websites ' + params['user[websites][operator]'] + ' "' + params[x] + '"';
+          break;
+          }
         case 'user[fetishes_into]':
-          query += ' and U ' + params['user[fetishes_into][operator]'] + ' "' + params[x] + '"';
+          if(params['fetishes_into[operator]'] == "matches"){
+          query += " fetishes_into= '" + params[x] + "'";
           break;
+          }
+          else{
+          query += ' and fetishes_into ' + params['user[fetishes_into][operator]'] + ' "' + params[x] + '"';
+          break;
+          }
         case 'user[fetishes_curious_about]':
-          query += ' and V ' + params['user[fetishes_curious_about][operator]'] + ' "' + params[x] + '"';
+          if(params['fetishes_curious_about[operator]'] == "matches"){
+          query += " fetishes_curious_about= '" + params[x] + "'";
           break;
+          }
+          else{
+          query += ' and fetishes_curious_about ' + params['user[fetishes_curious_about][operator]'] + ' "' + params[x] + '"';
+          break
+          }
         case 'min_age':
-          query += ' and D >= ' + params[x];
+          query += ' and age >= ' + params[x];
           break;
         case 'max_age':
-          query += ' and D <= ' + params[x];
+          query += ' and age <= ' + params[x];
           break;
         case 'friends[count]':
-          query += ' and G ' + params['friends[operator]'] + ' ' + params[x];
+          query += ' and friend_count ' + params['friend_count[operator]'] + ' ' + params[x];
           break;
         case 'friends[exclude_zero]':
-          query += ' and G != 0';
+          query += ' and friend_count != 0';
           break;
         case 'pictures[count]':
-          query += ' and W ' + params['pictures[operator]'] + ' ' + params[x];
+          query += ' and num_pics ' + params['num_pics[operator]'] + ' ' + params[x];
           break;
         case 'pictures[exclude_zero]':
-          query += ' and W != 0';
+          query += ' and num_pics != 0';
           break;
         case 'videos[count]':
-          query += ' and X ' + params['videos[operator]'] + ' ' + params[x];
+          query += ' and num_vids ' + params['num_vids[operator]'] + ' ' + params[x];
           break;
         case 'videos[exclude_zero]':
-          query += ' and X != 0';
+          query += ' and num_vids != 0';
           break;
         case 'user[sex]':
           query += ' and (';
           if ('object' === typeof(params[x])) {
             for (var i in params[x]) {
-              query += 'E="' + params[x][i] + '"';
+              query += 'gender="' + params[x][i] + '"';
               if (i < params[x].length - 1) { query += ' or '; }
             }
           } else {
-            query += 'E="' + params[x] + '"';
+            query += 'gender="' + params[x] + '"';
           }
           query += ')';
           break;
@@ -250,11 +268,11 @@ function buildQuery (params) {
           query += ' and (';
           if ('object' === typeof(params[x])) {
             for (var i in params[x]) {
-              query += 'M="' + params[x][i] + '"';
+              query += 'sexual_orientation="' + params[x][i] + '"';
               if (i < params[x].length - 1) { query += ' or '; }
             }
           } else {
-            query += 'M="' + params[x] + '"';
+            query += 'sexual_orientation="' + params[x] + '"';
           }
           query += ')';
           break;
@@ -262,11 +280,11 @@ function buildQuery (params) {
           query += ' and (';
           if ('object' === typeof(params[x])) {
             for (var i in params[x]) {
-              query += 'F="' + params[x][i] + '"';
+              query += 'role="' + params[x][i] + '"';
               if (i < params[x].length - 1) { query += ' or '; }
             }
           } else {
-            query += 'F="' + params[x] + '"';
+            query += 'role="' + params[x] + '"';
           }
           query += ')';
           break;
@@ -274,11 +292,11 @@ function buildQuery (params) {
           query += ' and (';
           if ('object' === typeof(params[x])) {
             for (var i in params[x]) {
-              query += 'N="' + params[x][i] + '"';
+              query += 'interest_level="' + params[x][i] + '"';
               if (i < params[x].length - 1) { query += ' or '; }
             }
           } else {
-            query += 'N="' + params[x] + '"';
+            query += 'interest_level="' + params[x] + '"';
           }
           query += ')';
           break;
@@ -286,26 +304,32 @@ function buildQuery (params) {
           query += ' and (';
           if ('object' === typeof(params[x])) {
             for (var i in params[x]) {
-              query += 'O contains "' + params[x][i] + '"';
+              query += 'looking_for= "' + params[x][i] + '"';
               if (i < params[x].length - 1) { query += ' or '; }
             }
           } else {
-            query += 'O contains "' + params[x] + '"';
+            query += 'looking_for= "' + params[x] + '"';
           }
           query += ')';
           break;
-        case 'location':
-          var loc_cols = ['I', 'J', 'K'];
-          query += ' and (';
-          for (var i in loc_cols) {
-            query += loc_cols[i] + '="' + params[x] + '"';
-            if (i < loc_cols.length - 1) { query += ' or '; }
+        case 'location_locality':
+          if (params[x]) {
+            query += ' and location_locality=' + " '" + params[x] + "'";
           }
-          query += ')';
+          break;
+        case 'location_region':
+          if (params[x]) {
+            query += ' and location_region=' + " '" + params[x] + "'";
+          }
+          break;
+        case 'location_country':
+          if (params[x]) {
+            query += ' and location_country=' + " '" + params[x] + "'";
+          }
           break;
         case 'user[type]':
           if (params[x]) {
-            query += ' and H=' + params[x];
+            query += ' and paid_account=' + params[x];
           }
           break;
 //        // TODO:
@@ -316,10 +340,6 @@ function buildQuery (params) {
 //          break;
       }
     }
-  }
-  query += ' limit ' + params.limit;
-  if (params.offset) {
-    query += ' offset ' + params.offset;
   }
   Logger.log('Built query: ' + query);
   return query;
