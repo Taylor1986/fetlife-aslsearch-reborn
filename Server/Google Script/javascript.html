@@ -24,9 +24,15 @@ jQuery(document).ready(function () {
     jQuery('#search-form header, #search-form section').each(function () {
       jQuery(this).slideUp();
     });
+    var form = document.getElementById('search-form');
+    const formEntries = new FormData(form).entries();
+    var json = Object.assign(...Array.from(formEntries, ([x,y]) => ({[x]:y})));
+    json = JSON.stringify(json);
+    console.log("json is " + encodeURIComponent(json));
+    //request(https://script.google.com/macros/s/AKfycbzX5EByRVtAoFJYKYLo8oz-se8aZk4S4erBc1CUWhPkJPzjmfMl/exec);
     google.script.run
       .withSuccessHandler(handleSearchSuccess)
-      .processSearchForm(document.getElementById('search-form'));
+      .processSearchForm(json);
   });
 
   jQuery('#search-form select[name="user[type]"]').on('change', function () {
@@ -76,6 +82,28 @@ jQuery(document).ready(function () {
   });
 });
 
+
+// URL to be send via get and wait for response
+
+function request(url) {
+  const xhr = new XMLHttpRequest();
+  xhr.timeout = 2000;
+  xhr.onreadystatechange = function(e) {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+       // Code here for the server answer when successful
+      } else {
+       // Code here for the server answer when not successful
+      }
+    }
+  }
+  xhr.ontimeout = function () {
+    // Well, it took to long do some code here to handle that
+  }
+  xhr.open('get', url, true)
+  xhr.send();
+}
+
 //Behaviour of reset button
 function resetSearchForm () {
   var form = jQuery('#search-form');
@@ -123,8 +151,8 @@ function handleSearchSuccess (results) {
   var columns = [];
   results[0].forEach(function (col_name) {
     var cell_funcs_map = {
-      'Nickname' : linkify,
-      'Avatar URL': buildLinkToFetLife
+      'nickname' : buildLinkToFetLife,
+      'avatar_url': linkify
     };
     var c = {
       'title': col_name,
@@ -152,13 +180,12 @@ function handleSearchSuccess (results) {
     function buildLinkToFetLife (td, cellData, rowData, row, col) {
       var html = '';
       html += '<a href="https://fetlife.com/users/' + rowData[0] + '" target="_blank">';
-      // Hidden due to not working (fetlife checks referer header), dont want them to log 403 errors and ban people
-      //html += '<img src="' + rowData[10] + '" alt="" class="img-rounded" /><div class="text-center">' + cellData + '</div>';
-      html += + cellData + '</a>';
+      html += '<img src="' + rowData[10] + '" alt="" class="img-rounded" /><div class="text-left">' + cellData + '</div>';
+      html += '</a>';
       jQuery(td).html(html);
     }
     function linkify (td, cellData, rowData, row, col) {
-      jQuery(td).html('<a href="https://fetlife.com/users/' + rowData[0] + '" target="_blank">' + cellData + '</a>');
+      jQuery(td).html('<a href=' + rowData[10] + '"target="_blank">' + cellData + '</a>');
     }
     
   });
