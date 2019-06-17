@@ -81,76 +81,99 @@ return resultsArray
         switch (x) {
           //Cases filter input from form, only accept known input options
           case 'nickname(search)':
-            params[x] = libVERSAN.sanString(params[x]);
             if(params['nickname(operator)'] == "matches"){
+            params[x] = libVERSAN.sanString(params[x]);
             query += " and nickname= " + params[x];
             break;
             }
             else{
+            params[x] = '%' + params[x] + '%'
+            params[x] = libVERSAN.sanString(params[x]);
             query += ' and nickname ' + ' LIKE ' + params[x];
             break
             }
-          case 'user[bio]':
-            if(params['bio[operator]'] == "matches"){
-            query += " bio= '" + params[x] + "'";
+          case 'user(bio)':
+            console.log(params['user(bio)(operator])']);
+            if(params['user(bio)(operator])'] == "matches"){
+            params[x] = libVERSAN.sanString(params[x]);
+            query += " and bio= " + params[x];
             break;
             }
             else{
-            query += ' and bio ' + params['user[bio][operator]'] + ' "' + params[x] + '"';
+            params[x] = '%' + params[x] + '%'
+            params[x] = libVERSAN.sanString(params[x]);
+            query += ' and bio ' + ' LIKE ' + params[x];
             break
             }
-          case 'user[websites]':
-            if(params['websites[operator]'] == "matches"){
-            query += " websites= '" + params[x] + "'";
+          case 'user(websites)':
+            if(params['user(websites)(operator)'] == "matches"){
+            params[x] = libVERSAN.sanString(params[x]);
+            query += " and websites= " + params[x];
             break;
             }
             else{
-            query += ' and websites ' + params['user[websites][operator]'] + ' "' + params[x] + '"';
+            params[x] = '%' + params[x] + '%'
+            params[x] = libVERSAN.sanString(params[x]);
+            query += ' and websites ' + ' LIKE ' + params[x];
             break;
             }
-          case 'user[fetishes_into]':
-            if(params['fetishes_into[operator]'] == "matches"){
-            query += " fetishes_into= '" + params[x] + "'";
-            break;
-            }
-            else{
-            query += ' and fetishes_into ' + params['user[fetishes_into][operator]'] + ' "' + params[x] + '"';
-            break;
-            }
-          case 'user[fetishes_curious_about]':
-            if(params['fetishes_curious_about[operator]'] == "matches"){
-            query += " fetishes_curious_about= '" + params[x] + "'";
+          case 'user(fetishes_into)':
+            if(params['user(fetishes_into)(operator)'] == "matches"){
+            params[x] = libVERSAN.sanString(params[x]);
+            query += " and fetishes_into= " + params[x];
             break;
             }
             else{
-            query += ' and fetishes_curious_about ' + params['user[fetishes_curious_about][operator]'] + ' "' + params[x] + '"';
+            params[x] = '%' + params[x] + '%'
+            params[x] = libVERSAN.sanString(params[x]);
+            query += ' and fetishes_into ' + ' LIKE ' + params[x];
+            break;
+            }
+          case 'user(fetishes_curious_about)':
+            if(params['user(fetishes_curious_about)(operator)'] == "matches"){
+            params[x] = libVERSAN.sanString(params[x]);
+            query += " and fetishes_curious_about= " + params[x];
+            break;
+            }
+            else{
+            params[x] = '%' + params[x] + '%'
+            params[x] = libVERSAN.sanString(params[x]);
+            query += ' and fetishes_curious_about ' + ' LIKE ' + params[x];
             break
             }
           case 'min_age':
+            params[x] = libVERSAN.sanINT(params[x]);
             query += ' and age >= ' + params[x];
             break;
           case 'max_age':
+            params[x] = libVERSAN.sanINT(params[x]);
             query += ' and age <= ' + params[x];
             break;
-          case 'friends[count]':
-            query += ' and friend_count ' + params['friend_count[operator]'] + ' ' + params[x];
+          case 'friends(count)':
+            params[x] = libVERSAN.sanINT(params[x]);
+            query += ' and friend_count ' + params['friend_count(operator)'] + ' ' + params[x];
             break;
-          case 'friends[exclude_zero]':
+          case 'friends(count)':
+            params[x] = libVERSAN.sanINT(params[x]);
             query += ' and friend_count != 0';
             break;
-          case 'pictures[count]':
-            query += ' and num_pics ' + params['num_pics[operator]'] + ' ' + params[x];
+          case 'pictures(count)':
+            params[x] = libVERSAN.sanINT(params[x]);
+            query += ' and num_pics ' + params['num_pics(operator)'] + ' ' + params[x];
             break;
-          case 'pictures[exclude_zero]':
+          case 'pictures(count)':
+            params[x] = libVERSAN.sanINT(params[x]);
             query += ' and num_pics != 0';
             break;
-          case 'videos[count]':
-            query += ' and num_vids ' + params['num_vids[operator]'] + ' ' + params[x];
+          case 'videos(count)':
+            params[x] = libVERSAN.sanINT(params[x]);
+            query += ' and num_vids ' + params['num_vids(operator)'] + ' ' + params[x];
             break;
-          case 'videos[exclude_zero]':
+          case 'videos(count)':
+            params[x] = libVERSAN.sanINT(params[x]);
             query += ' and num_vids != 0';
             break;
-          case 'user[sex]':
+          case 'user(sex)':
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -158,11 +181,12 @@ return resultsArray
                 if (i < params[x].length - 1) { query += ' or '; }
               }
             } else {
+              params[x] = libVERSAN.sanString(params[x]);
               query += 'gender="' + params[x] + '"';
             }
             query += ')';
             break;
-          case 'user[sexual_orientation]':
+          case 'user(sexual_orientation)':
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -170,11 +194,12 @@ return resultsArray
                 if (i < params[x].length - 1) { query += ' or '; }
               }
             } else {
+              params[x] = libVERSAN.sanString(params[x]);
               query += 'sexual_orientation="' + params[x] + '"';
             }
             query += ')';
             break;
-          case 'user[role]':
+          case 'user(role)':
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -182,11 +207,12 @@ return resultsArray
                 if (i < params[x].length - 1) { query += ' or '; }
               }
             } else {
+              params[x] = libVERSAN.sanString(params[x]);
               query += 'role="' + params[x] + '"';
             }
             query += ')';
             break;
-          case 'user[activity_level]':
+          case 'user(activity_level)':
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -194,11 +220,12 @@ return resultsArray
                 if (i < params[x].length - 1) { query += ' or '; }
               }
             } else {
+              params[x] = libVERSAN.sanString(params[x]);
               query += 'interest_level="' + params[x] + '"';
             }
             query += ')';
             break;
-          case 'user[looking_for]':
+          case 'user(looking_for)':
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -206,32 +233,36 @@ return resultsArray
                 if (i < params[x].length - 1) { query += ' or '; }
               }
             } else {
+              params[x] = libVERSAN.sanString(params[x]);
               query += 'looking_for= "' + params[x] + '"';
             }
             query += ')';
             break;
           case 'location_locality':
+            params[x] = libVERSAN.sanString(params[x]);
             if (params[x]) {
               query += ' and location_locality=' + " '" + params[x] + "'";
             }
             break;
           case 'location_region':
+            params[x] = libVERSAN.sanString(params[x]);
             if (params[x]) {
               query += ' and location_region=' + " '" + params[x] + "'";
             }
             break;
           case 'location_country':
+            params[x] = libVERSAN.sanString(params[x]);
             if (params[x]) {
               query += ' and location_country=' + " '" + params[x] + "'";
             }
             break;
-          case 'user[type]':
+          case 'user(type)':
             if (params[x]) {
               query += ' and paid_account=' + params[x];
             }
             break;
   //        // TODO:
-  //        case 'user[vanilla_relationships]':
+  //        case 'user(vanilla_relationships)':
   //          if (params[x]) {
   //            query += ' and P ' + params[x];
   //          }

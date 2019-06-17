@@ -69,23 +69,23 @@ module.exports = {
           switch (k) {
             case 'user_id':
                 safe_obj[k] = parseInt(obj[k]);
-                obj[k]=db.escape(obj[k]);
+                obj[k]=mysql.escape(obj[k]);
                 break;
             case 'age':
                 safe_obj[k] = parseInt(obj[k]);
-                obj[k]=db.escape(obj[k]);
+                obj[k]=mysql.escape(obj[k]);
                 break;
             case 'friend_count':
                 safe_obj[k] = parseInt(obj[k]);
-                obj[k]=db.escape(obj[k]);
+                obj[k]=mysql.escape(obj[k]);
                 break;
             case 'num_pics':
                 safe_obj[k] = parseInt(obj[k]);
-                obj[k]=db.escape(obj[k]);
+                obj[k]=mysql.escape(obj[k]);
                 break;
             case 'num_vids':
               safe_obj[k] = parseInt(obj[k]);
-              obj[k]=db.escape(obj[k]);
+              obj[k]=mysql.escape(obj[k]);
               break;
             case 'paid_account':
               if ('boolean' === typeof(obj[k])) {
@@ -96,7 +96,7 @@ module.exports = {
               break;
             case 'avatar_url':
               if (obj[k].match(/^https:\/\/pic[0-9]*\.fetlife\.com/)) {
-                obj[k]=db.escape(obj[k]);
+                obj[k]=mysql.escape(obj[k]);
                 safe_obj[k] = obj[k];
               }
               break;
@@ -104,7 +104,7 @@ module.exports = {
               // TODO: Stricter?
               //if (-1 !== CONFIG.Fields.headings.indexOf(k)) {
               obj[k] = obj[k].toString()
-              obj[k]=db.escape(obj[k]);
+              obj[k]=mysql.escape(obj[k]);
                safe_obj[k] = obj[k];
                
             //  }

@@ -92,8 +92,8 @@ response.status(200).end(JSON.stringify(feedback));
 
 
 
-var server = app.listen(config.Port, function(){
-  var port = server.address().port;
+var server = app.listen(config.Listenport, function(){
+var port = server.address().port;
   console.log("Server started at http://localhost:%s", port);
 app.get('/query', function(request, response)
 {
