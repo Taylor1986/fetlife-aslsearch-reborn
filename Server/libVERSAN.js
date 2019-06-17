@@ -31,7 +31,7 @@ module.exports = {
     return typeof value === 'undefined';
     },
     // Returns if a value is a boolean
-    isBooleanfunction  (value) {
+    isBoolean  (value) {
     return typeof value === 'boolean';
     },
     // Returns if a value is a regexp
@@ -60,6 +60,31 @@ module.exports = {
         INT = mysql.escape(INT);
         return INT
     },
+    sanBoolean: function(bool){
+      //transform true/false or 1/0 to boolean
+      if(bool == 1){
+        bool = true;
+      }
+      else if (bool == 0){
+        bool = false;
+      }
+      else if(bool == "true" || "True"){
+        bool = true;
+      }
+      else if(vool == "false" || "False")
+      {
+        bool = false;
+      }
+
+
+      if (isBoolean(bool)) {
+        bool = mysql.escape(bool);
+        return bool
+      } else {
+        console.log('WARNING: Expected boolean value in ' + bool);
+        return null
+      }
+  },
 
     validateInput: function (obj) {
         var safe_obj = {};
@@ -88,7 +113,8 @@ module.exports = {
               obj[k]=mysql.escape(obj[k]);
               break;
             case 'paid_account':
-              if ('boolean' === typeof(obj[k])) {
+              obj[k] = sanBoolean(obj[k]);
+              if (obj[k] != null) {
                 safe_obj[k] = obj[k];
               } else {
                 console.log('WARNING: Expected boolean value in ' + obj[k]);
@@ -105,7 +131,7 @@ module.exports = {
               //if (-1 !== CONFIG.Fields.headings.indexOf(k)) {
               obj[k] = obj[k].toString()
               obj[k]=mysql.escape(obj[k]);
-               safe_obj[k] = obj[k];
+              safe_obj[k] = obj[k];
                
             //  }
               break;

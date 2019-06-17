@@ -278,7 +278,10 @@ return resultsArray
             break;
           case 'user(type)':
             if (params[x]) {
+              params[x] = libVERSAN.sanBoolean();
+              if(params[x]){
               query += ' and paid_account=' + params[x];
+              }
             }
             break;
   //        // TODO:
