@@ -19,9 +19,8 @@ jQuery(document).ready(function () {
     var form = document.getElementById('search-form');
     const formEntries = new FormData(form).entries();
     var json = Object.assign(...Array.from(formEntries, ([x,y]) => ({[x]:y})));
-    json = JSON.stringify(json);
-    console.log("json is " + encodeURIComponent(json));
-    request("http://localhost:8081/query?" + json);
+    stringify = encodeURIComponent(JSON.stringify(json));
+    request("http://localhost:8081/query?" + stringify);
   });
 
   jQuery('#search-form select[name="user[type]"]').on('change', function () {
@@ -81,7 +80,7 @@ function request(url) {
       if (xhr.status === 200) {
        // Code here for the server answer when successful
        console.log("Get Successfull: " + xhr.response);
-       cleanjson = JSON.parse(xhr.response)
+       cleanjson = JSON.parse(xhr.response);
        console.log("Get cleaned: " + cleanjson[0]);
        handleSearchSuccess(cleanjson);
       } else {

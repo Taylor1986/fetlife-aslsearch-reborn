@@ -4,8 +4,9 @@ module.exports = {
    */
  
   processSearchForm: function  (form_object) {
-    console.log("Parsing: " + form_object);
-    var response = buildSQLQuery(form_object)
+    var form_object = Object.keys(form_object)[0];
+    var json = JSON.parse(decodeURIComponent(form_object));
+    var response = buildSQLQuery(json)
     return response
   },
   processSearchQuery: function  (rawFields, rawResults) {

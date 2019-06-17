@@ -276,47 +276,47 @@
         <div class="panel-body">
           <fieldset class="text-fields"><legend>Nickname</legend>
             <p>
-              <select name="nickname[operator]">
+              <select name="nickname(operator)">
                 <option value="matches">matches (regular expression)</option>
                 <option value="like">like (SQL-wildcards)</option>
               </select>
-              <input type="search" name="nickname[search]" placeholder="type part of a username" />
+              <input type="search" name="nickname(search)" placeholder="type part of a username" />
             </p>
           </fieldset>
           <fieldset class="text-fields"><legend>"About Me"</legend>
             <p>
-              <select name="user[bio][operator]">
+              <select name="user(bio)(operator])">
                 <option value="matches">matches (regular expression)</option>
                 <option value="like">like (SQL-wildcards)</option>
               </select>
-              <input type="search" name="user[bio]" placeholder="profile text" />
+              <input type="search" name="user(bio)" placeholder="profile text" />
             </p>
           </fieldset>
           <fieldset class="text-fields"><legend>Website</legend>
             <p>
-              <select name="user[websites][operator]">
+              <select name="user(websites)(operator)">
                 <option value="matches">matches (regular expression)</option>
                 <option value="like">like (SQL-wildcards)</option>
               </select>
-              <input type="search" name="user[websites]" placeholder="URL parts" />
+              <input type="search" name="user(websites)" placeholder="URL parts" />
             </p>
           </fieldset>
           <fieldset class="text-fields"><legend>Fetishes into</legend>
             <p>
-              <select name="user[fetishes_into][operator]">
+              <select name="user(fetishes_into)(operator)">
                 <option value="matches">matches (regular expression)</option>
                 <option value="like">like (SQL-wildcards)</option>
               </select>
-              <input type="search" name="user[fetishes_into]" placeholder="fetish" />
+              <input type="search" name="user(fetishes_into)" placeholder="fetish" />
             </p>
           </fieldset>
           <fieldset class="text-fields"><legend>Fetishes curious about</legend>
             <p>
-              <select name="user[fetishes_curious_about][operator]">
+              <select name="user=(fetishes_curious_about)(operator)">
                 <option value="matches">matches (regular expression)</option>
                 <option value="like">like (SQL-wildcards)</option>
               </select>
-              <input type="search" name="user[fetishes_curious_about]" placeholder="fetish" />
+              <input type="search" name="user(fetishes_curious_about)" placeholder="fetish" />
             </p>
           </fieldset>
           <fieldset class="one-or-more-fields"><legend>Looking for</legend>
@@ -386,32 +386,32 @@
         <div class="panel-body">
           <fieldset class="min-or-max-fields"><legend>Friends</legend>
             <p>
-              <select name="friend_count[operator]">
+              <select name="friend_count(operator)">
                 <option value=">=">at least</option>
                 <option value="<=">at most</option>
               </select>
-              <label><input type="number" min="1" placeholder="10" name="friends[count]" /> friends</label>
-              (and <label><input type="checkbox" value="1" name="friends[exclude_zero]" />exclude profiles with no friends</label>)
+              <label><input type="number" min="1" placeholder="10" name="friends(count)" /> friends</label>
+              (and <label><input type="checkbox" value="1" name="friends(exclude_zero)" />exclude profiles with no friends</label>)
             </p>
           </fieldset>
           <fieldset class="min-or-max-fields"><legend>Photos</legend>
             <p>
-              <select name="num_pics[operator]">
+              <select name="num_pics(operator)">
                 <option value=">=">at least</option>
                 <option value="<=">at most</option>
               </select>
-              <label><input type="number" min="1" placeholder="10" name="pictures[count]" /> pictures</label>
-              (and <label><input type="checkbox" value="1" name="pictures[exclude_zero]" />exclude profiles with no pictures</label>)
+              <label><input type="number" min="1" placeholder="10" name="pictures(count)" /> pictures</label>
+              (and <label><input type="checkbox" value="1" name="pictures(exclude_zero)" />exclude profiles with no pictures</label>)
             </p>
           </fieldset>
           <fieldset class="min-or-max-fields"><legend>Videos</legend>
             <p>
-            <select name="num_vids[operator]">
+            <select name="num_vids(operator)">
               <option value=">=">at least</option>
               <option value="<=">at most</option>
             </select>
-              <label><input type="number" min="1" placeholder="10" name="videos[count]" /> videos</label>
-              (and <label><input type="checkbox" value="1" name="videos[exclude_zero]" />exclude profiles with no videos</label>)
+              <label><input type="number" min="1" placeholder="10" name="videos(count)" /> videos</label>
+              (and <label><input type="checkbox" value="1" name="videos(exclude_zero)" />exclude profiles with no videos</label>)
             </p>
           </fieldset>
           <fieldset class="single-select-fields"><legend>Account type</legend>
@@ -430,7 +430,7 @@
               >Help</a>
             <p>
             <!-- There are some issues with SQL transition and booleans, needs some attention after transition -->
-              <label>Search <select name="user[type]">
+              <label>Search <select name="user(type)">
                   <option value="">all accounts</option>
                   <option value="TRUE">only paid accounts</option>
                   <option value="FALSE">only free accounts</option>

@@ -92,6 +92,7 @@ response.status(200).end(JSON.stringify(feedback));
 
 app.get('/query', function(request, response)
 {
+   console.log(request.params);
     var query = libGET.processSearchForm(request.query);
     var start = new Date();
     console.log("Searching for: " + query);
