@@ -44,7 +44,7 @@ app.post('/scraper', function(request, response){
     // check if userentry already exists
     if(processed && processed.user_id){
     var query = "SELECT user_id FROM UserData where user_id= " + processed.user_id;
-    db.query(query, function (err, result, fields) {
+    db.con.query(query, function (err, result, fields) {
         if (err) {
             throw err;
             response.status(400).end('Error in database operation');
@@ -92,10 +92,10 @@ response.status(200).end(JSON.stringify(feedback));
 
 app.get('/query', function(request, response)
 {
-    var query = libParse.processSearchForm(request.query);
+    var query = libGET.processSearchForm(request.query);
     var start = new Date();
     console.log("Searching for: " + query);
-        db.query(query, function (err, result, fields) {
+        db.con.query(query, function (err, result, fields) {
           if (err) {
               throw err;
               response.status(400).send('Error in database operation');

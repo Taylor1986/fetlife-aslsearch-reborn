@@ -87,7 +87,7 @@ module.exports = {
     var sql = 'update UserData set ' + cols + ' where user_id =' + id;
 console.log("sql: " + sql);
 
-db.query(sql, function (err, result, fields) {
+db.con.query(sql, function (err, result, fields) {
   if (err) {
       throw err;
       response.status(400).end('Error in database operation');
@@ -130,7 +130,7 @@ db.query(sql, function (err, result, fields) {
     var sql = "INSERT INTO UserData (" + cols + ") VALUE (" + vals + ")";
 console.log("sql: " + sql);
 
-db.query(sql, function (err, result, fields) {
+db.con.query(sql, function (err, result, fields) {
   if (err) {
       throw err;
       response.status(400).end('Error in database operation');
