@@ -9,7 +9,7 @@ module.exports = {
   processSearchForm: function  (form_object) {
 
     //Verify if GET is right format
-    console.log(Object.keys(form_object));
+    console.log(Object.keys(form_object)[0]);
     if(libVERSAN.isObject(form_object) && libVERSAN.isString(Object.keys(form_object)[0] )){
     
     //Seperate needed data from GET, Decode to processable format and turn into SQL string
@@ -78,6 +78,7 @@ return resultsArray
     var query = 'select user_id, nickname, age, gender, role, friend_count, paid_account, location_locality, location_region, location_country, avatar_url, sexual_orientation, interest_level, looking_for, num_pics, num_vids FROM UserData where nickname is not null';
     for (var x in params) {
       if (params[x]) {
+        console.log(x);
         switch (x) {
           //Cases filter input from form, only accept known input options
           case 'nickname(search)':
@@ -173,11 +174,12 @@ return resultsArray
             params[x] = libVERSAN.sanINT(params[x]);
             query += ' and num_vids != 0';
             break;
-          case 'user(sex)':
+          case ((/(?<![\w\d])user-sex[\d]{1,2}/).test(x)):
             query += ' and (';
-            if ('object' === typeof(params[x])) {
+            if (libVERSAN.isObject(params[x])) {
               for (var i in params[x]) {
-                query += 'gender="' + params[x][i] + '"';
+                params[x] = libVERSAN.sanString(params[x][i]);
+                query += 'gender=' + params[x][i];
                 if (i < params[x].length - 1) { query += ' or '; }
               }
             } else {
@@ -186,7 +188,7 @@ return resultsArray
             }
             query += ')';
             break;
-          case 'user(sexual_orientation)':
+          case ((/(?<![\w\d])user-sexual_orientation[\d]{1,2}/).test(x)):
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -199,7 +201,7 @@ return resultsArray
             }
             query += ')';
             break;
-          case 'user(role)':
+          case ((/(?<![\w\d])user-role[\d]{1,2}/).test(x)):
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -212,7 +214,7 @@ return resultsArray
             }
             query += ')';
             break;
-          case 'user(activity_level)':
+          case ((/(?<![\w\d])user-activity_level[\d]{1,2}/).test(x)):
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {
@@ -225,7 +227,7 @@ return resultsArray
             }
             query += ')';
             break;
-          case 'user(looking_for)':
+          case ((/(?<![\w\d])user-looking_for[\d]{1,2}/).test(x)):
             query += ' and (';
             if ('object' === typeof(params[x])) {
               for (var i in params[x]) {

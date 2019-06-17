@@ -19,6 +19,7 @@ jQuery(document).ready(function () {
     var form = document.getElementById('search-form');
     const formEntries = new FormData(form).entries();
     var json = Object.assign(...Array.from(formEntries, ([x,y]) => ({[x]:y})));
+    console.log(json);
     stringify = encodeURIComponent(JSON.stringify(json));
     request("http://localhost:8081/query?" + stringify);
   });
