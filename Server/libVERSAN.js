@@ -58,7 +58,7 @@ module.exports = {
     sanINT: function(INT){
         INT = parseInt(INT);
         INT = mysql.escape(INT);
-        return string
+        return INT
     },
 
     validateInput: function (obj) {

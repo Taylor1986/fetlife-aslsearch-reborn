@@ -241,19 +241,19 @@ return resultsArray
           case 'location_locality':
             params[x] = libVERSAN.sanString(params[x]);
             if (params[x]) {
-              query += ' and location_locality=' + " '" + params[x] + "'";
+              query += ' and location_locality= ' + params[x];
             }
             break;
           case 'location_region':
             params[x] = libVERSAN.sanString(params[x]);
             if (params[x]) {
-              query += ' and location_region=' + " '" + params[x] + "'";
+              query += ' and location_region= ' + params[x];
             }
             break;
           case 'location_country':
             params[x] = libVERSAN.sanString(params[x]);
             if (params[x]) {
-              query += ' and location_country=' + " '" + params[x] + "'";
+              query += ' and location_country= ' + params[x];
             }
             break;
           case 'user(type)':
