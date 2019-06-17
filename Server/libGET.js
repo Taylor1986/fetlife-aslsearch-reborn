@@ -9,7 +9,7 @@ module.exports = {
   processSearchForm: function  (form_object) {
 
     //Verify if GET is right format
-    console.log(Object.keys(form_object)[0]);
+    console.log(Object.keys(form_object));
     if(libVERSAN.isObject(form_object) && libVERSAN.isString(Object.keys(form_object)[0] )){
     
     //Seperate needed data from GET, Decode to processable format and turn into SQL string
@@ -182,7 +182,7 @@ return resultsArray
               }
             } else {
               params[x] = libVERSAN.sanString(params[x]);
-              query += 'gender="' + params[x] + '"';
+              query += 'gender= ' + params[x];
             }
             query += ')';
             break;
@@ -195,7 +195,7 @@ return resultsArray
               }
             } else {
               params[x] = libVERSAN.sanString(params[x]);
-              query += 'sexual_orientation="' + params[x] + '"';
+              query += 'sexual_orientation= ' + params[x];
             }
             query += ')';
             break;
@@ -208,7 +208,7 @@ return resultsArray
               }
             } else {
               params[x] = libVERSAN.sanString(params[x]);
-              query += 'role="' + params[x] + '"';
+              query += 'role= ' + params[x];
             }
             query += ')';
             break;
@@ -221,7 +221,7 @@ return resultsArray
               }
             } else {
               params[x] = libVERSAN.sanString(params[x]);
-              query += 'interest_level="' + params[x] + '"';
+              query += 'interest_level= ' + params[x];
             }
             query += ')';
             break;
@@ -234,7 +234,7 @@ return resultsArray
               }
             } else {
               params[x] = libVERSAN.sanString(params[x]);
-              query += 'looking_for= "' + params[x] + '"';
+              query += 'looking_for= ' + params[x];
             }
             query += ')';
             break;
