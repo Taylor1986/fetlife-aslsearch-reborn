@@ -5,6 +5,7 @@ var libGET = require('./libGET');
 var config = require('./config.json');
 var db = require('./db');
 var libPOST = require('./libPOST');
+var libVERSAN = require('./libVERSAN.js');
 
 app.use(express.static('public'));
 
@@ -13,14 +14,13 @@ app.use('/css', express.static(__dirname + '/public/css'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/images', express.static(__dirname + '/public/images'));
 
-var server = app.listen(config.Port, function(){
-    var port = server.address().port;
-    console.log("Server started at http://localhost:%s", port);
+
 
 
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
+
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
@@ -36,7 +36,7 @@ app.post('/scraper', function(request, response){
       }
       var feedback = "Recieved " + profiles.length + " scraped users to Process."
       for (var profile in profiles) {
-      const processed = libPOST.validateScraperInput(profiles[profile]);
+      const processed = libVERSAN.validateInput(profiles[profile]);
       console.log(processed);
       console.log(processed.user_id);
 
@@ -90,10 +90,19 @@ console.log(feedback);
 response.status(200).end(JSON.stringify(feedback));
 }});
 
+
+
+var server = app.listen(config.Port, function(){
+  var port = server.address().port;
+  console.log("Server started at http://localhost:%s", port);
 app.get('/query', function(request, response)
 {
    console.log(request.params);
     var query = libGET.processSearchForm(request.query);
+    if(!query){
+      response.status(400).send('Error in search query');
+    }
+    else{
     var start = new Date();
     console.log("Searching for: " + query);
         db.con.query(query, function (err, result, fields) {
@@ -114,8 +123,9 @@ app.get('/query', function(request, response)
           
           );
           }
-  });
-    });
+  });  
+} 
+});
     });
 
 

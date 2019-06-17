@@ -1,16 +1,41 @@
+var libVERSAN = require('./libVERSAN.js');
+
+
 module.exports = {
     /**
    * Handler for the main search form.
    */
  
   processSearchForm: function  (form_object) {
+
+    //Verify if GET is right format
+    console.log(Object.keys(form_object)[0]);
+    if(libVERSAN.isObject(form_object) && libVERSAN.isString(Object.keys(form_object)[0] )){
+    
+    //Seperate needed data from GET, Decode to processable format and turn into SQL string
     var form_object = Object.keys(form_object)[0];
-    var json = JSON.parse(decodeURIComponent(form_object));
-    var response = buildSQLQuery(json)
-    return response
+    try {
+      var json = JSON.parse(decodeURIComponent(form_object));
+      var response = buildSQLQuery(json)
+      return response
+    } 
+    
+    // Return null if error
+    catch (e) {
+      console.error(e);
+      return
+    }
+  }
+  // Return null if format verification failed
+  else
+  {
+    return
+  }
+
   },
+
+
   processSearchQuery: function  (rawFields, rawResults) {
-    console.log("processsing: " + rawResults);
     var processed = arrayGen(rawFields, rawResults);
     return processed
   }
@@ -54,13 +79,15 @@ return resultsArray
     for (var x in params) {
       if (params[x]) {
         switch (x) {
-          case 'nickname[search]':
-            if(params['nickname[operator]'] == "matches"){
-            query += " and nickname= '" + params[x] + "'";
+          //Cases filter input from form, only accept known input options
+          case 'nickname(search)':
+            params[x] = libVERSAN.sanString(params[x]);
+            if(params['nickname(operator)'] == "matches"){
+            query += " and nickname= " + params[x];
             break;
             }
             else{
-            query += ' and nickname ' + params['nickname[operator]'] + ' "' + params[x] + '"';
+            query += ' and nickname ' + ' LIKE ' + params[x];
             break
             }
           case 'user[bio]':
