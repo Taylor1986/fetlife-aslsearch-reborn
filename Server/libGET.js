@@ -302,7 +302,7 @@ else{
         }
       }
     }
-    query += " LIMIT 30"; 
+    query += " LIMIT 500"; 
     console.log('Built query: ' + query);
     return query;
   }
