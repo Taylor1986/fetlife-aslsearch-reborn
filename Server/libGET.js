@@ -116,13 +116,13 @@ return resultsArray
     }}}
     console.log(params['user-sex']);
 
-if(!parms['min_age'])
+if(!params['min_age'])
 {
   query += 'age >= 18';
 }
 else{
   params[x] = libVERSAN.sanINT(params[x]);
-  query += 'age >= ' + params[x];
+  query += 'age >= ' + params['min_age'];
 }
     
     for (var x in params) {

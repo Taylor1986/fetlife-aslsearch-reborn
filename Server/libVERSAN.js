@@ -31,7 +31,7 @@ module.exports = {
     return typeof value === 'undefined';
     },
     // Returns if a value is a boolean
-    isBoolean  (value) {
+    isBoolean:  function (value) {
     return typeof value === 'boolean';
     },
     // Returns if a value is a regexp
@@ -77,7 +77,7 @@ module.exports = {
       }
 
 
-      if (isBoolean(bool)) {
+      if (typeof value === 'boolean') {
         bool = mysql.escape(bool);
         return bool
       } else {
