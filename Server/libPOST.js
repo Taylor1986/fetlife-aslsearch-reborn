@@ -1,17 +1,11 @@
-
-
-var db = require('./db');
+var db = require("./db");
 module.exports = {
-    /**
+  /**
    * Handler for the main search form.
    */
- 
-
-
-
 
   //id, col, key
-  requestUpdate: function (id, input) {
+  requestUpdate: function(id, input) {
     var data = [[]];
     data.push([]);
 
@@ -19,39 +13,34 @@ module.exports = {
     for (var key in input) {
       data[0].push(key);
       data[1].push(input[key]);
-      
-      }
+    }
     //UpdateToDB(data.user_id, toUpdate);
 
-  
     // Create a column to edit in the prepared statement for every entry in array
     // Remove trailing spaces and comma
     var cols = "";
     var index, len;
     for (index = 0, len = data[0].length; index < len; ++index) {
-    cols += data[0][index] + "=" + data[1][index] +  ", "
-  }
+      cols += data[0][index] + "=" + data[1][index] + ", ";
+    }
     cols = cols.replace(/,\s*$/, "");
 
-    var sql = 'update UserData set ' + cols + ' where user_id =' + id;
-console.log("sql: " + sql);
+    var sql = "update UserData set " + cols + " where user_id =" + id;
+    console.log("sql: " + sql);
 
-db.con.query(sql, function (err, result, fields) {
-  if (err) {
-      throw err;
-      response.status(400).end('Error in database operation');
-  }
+    db.con.query(sql, function(err, result, fields) {
+      if (err) {
+        throw err;
+        response.status(400).end("Error in database operation");
+      }
+    });
 
-});
+    // return the ID of the processed user
+    return;
+  },
 
-
-   // return the ID of the processed user
-   return 
-  
-    },
-
-      //id, col, key
-      requestInsert: function (input) {
+  //id, col, key
+  requestInsert: function(input) {
     var data = [[]];
     data.push([]);
 
@@ -59,37 +48,32 @@ db.con.query(sql, function (err, result, fields) {
     for (var key in input) {
       data[0].push(key);
       data[1].push(input[key]);
-      
-      }
+    }
     //UpdateToDB(data.user_id, toUpdate);
 
-  
     // Create a column to edit in the prepared statement for every entry in array
     // Remove trailing spaces and comma
     var cols = "";
     var vals = "";
     var index, len;
     for (index = 0, len = data[0].length; index < len; ++index) {
-      cols += data[0][index] + ", "
-      vals += data[1][index] + ", "
+      cols += data[0][index] + ", ";
+      vals += data[1][index] + ", ";
     }
-      cols = cols.replace(/,\s*$/, "");
-      vals = vals.replace(/,\s*$/, "");
+    cols = cols.replace(/,\s*$/, "");
+    vals = vals.replace(/,\s*$/, "");
 
     var sql = "INSERT INTO UserData (" + cols + ") VALUE (" + vals + ")";
-console.log("sql: " + sql);
+    console.log("sql: " + sql);
 
-db.con.query(sql, function (err, result, fields) {
-  if (err) {
-      throw err;
-      response.status(400).end('Error in database operation');
+    db.con.query(sql, function(err, result, fields) {
+      if (err) {
+        throw err;
+        response.status(400).end("Error in database operation");
+      }
+    });
+
+    // return the ID of the processed user
+    return;
   }
-
-});
-
-
-   // return the ID of the processed user
-   return 
-  
-    }
-  };
+};
