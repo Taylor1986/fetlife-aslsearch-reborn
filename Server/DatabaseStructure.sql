@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 192.168.1.110
--- Generation Time: Jun 19, 2019 at 08:26 PM
+-- Generation Time: Jun 19, 2019 at 11:42 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -31,15 +31,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `userdata` (
   `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `user_id` int(11) NOT NULL,
-  `nickname` varchar(16) DEFAULT NULL,
+  `nickname` varchar(18) DEFAULT NULL,
   `age` int(11) DEFAULT 99,
-  `gender` varchar(3) DEFAULT NULL,
-  `role` varchar(13) DEFAULT NULL,
+  `gender` varchar(5) DEFAULT NULL,
+  `role` varchar(15) DEFAULT NULL,
   `friend_count` int(11) DEFAULT NULL,
   `paid_account` tinyint(1) DEFAULT NULL,
-  `location_locality` varchar(14) DEFAULT NULL,
-  `location_region` varchar(19) DEFAULT NULL,
-  `location_country` varchar(14) DEFAULT NULL,
+  `location_locality` varchar(50) DEFAULT NULL,
+  `location_region` varchar(50) DEFAULT NULL,
+  `location_country` varchar(50) DEFAULT NULL,
   `avatar_url` varchar(164) DEFAULT NULL,
   `sexual_orientation` varchar(20) DEFAULT NULL,
   `interest_level` int(11) DEFAULT NULL,
