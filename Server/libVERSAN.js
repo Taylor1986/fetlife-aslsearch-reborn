@@ -90,7 +90,6 @@ module.exports = {
         var safe_obj = {};
         
         for (var k in obj) {
-          
           switch (k) {
             case 'user_id':
                 safe_obj[k] = parseInt(obj[k]);
@@ -127,8 +126,8 @@ module.exports = {
               }
               break;
             default:
-              // TODO: Stricter?
-              //if (-1 !== CONFIG.Fields.headings.indexOf(k)) {
+              // If != a used key, drop it somewhere around here or before switch
+              //
               obj[k] = obj[k].toString()
               obj[k]=mysql.escape(obj[k]);
               safe_obj[k] = obj[k];

@@ -75,7 +75,7 @@ return resultsArray
    */
   function buildSQLQuery (params) {
     // always add "where C is not null" to the query to avoid getting inactive user IDs
-    var query = 'select user_id, nickname, age, gender, role, friend_count, paid_account, location_locality, location_region, location_country, avatar_url, sexual_orientation, interest_level, looking_for, num_pics, num_vids FROM UserData where nickname is not null';
+    var query = 'select user_id, nickname, age, gender, role, friend_count, paid_account, location_locality, location_region, location_country, avatar_url, sexual_orientation, interest_level, looking_for, num_pics, num_vids FROM UserData where ';
     for (var x in params) {
       if (params[x]) {
         console.log(x);
@@ -115,11 +115,49 @@ return resultsArray
 
     }}}
     console.log(params['user-sex']);
+
+if(!parms['min_age'])
+{
+  query += 'age >= 18';
+}
+else{
+  params[x] = libVERSAN.sanINT(params[x]);
+  query += 'age >= ' + params[x];
+}
+    
     for (var x in params) {
       if (params[x]) {
         console.log(x);
         switch (x) {
           //Cases filter input from form, only accept known input options
+          case 'max_age':
+            params[x] = libVERSAN.sanINT(params[x]);
+            query += ' and age <= ' + params[x];
+            break;
+          case 'user-sex':
+              query += ' and (';
+              for (var i in params[x]) {
+                params[x][i] = libVERSAN.sanString(params[x][i]);
+                query += 'gender=' + params[x][i];
+                if (i < params[x].length - 1) { query += ' or '; }
+              }
+            query += ')';
+            break;
+          case 'user-role':
+              query += ' and (';
+              for (var i in params[x]) {
+                params[x][i] = libVERSAN.sanString(params[x][i]);
+                query += 'role=' + params[x][i];
+                if (i < params[x].length - 1) { query += ' or '; }
+              }
+            query += ')';
+            break;
+          case 'location_country':
+              params[x] = libVERSAN.sanString(params[x]);
+              if (params[x]) {
+                query += ' and location_country= ' + params[x];
+              }
+              break;
           case 'nickname(search)':
             if(params['nickname(operator)'] == "matches"){
             params[x] = libVERSAN.sanString(params[x]);
@@ -181,14 +219,6 @@ return resultsArray
             query += ' and fetishes_curious_about ' + ' LIKE ' + params[x];
             break
             }
-          case 'min_age':
-            params[x] = libVERSAN.sanINT(params[x]);
-            query += ' and age >= ' + params[x];
-            break;
-          case 'max_age':
-            params[x] = libVERSAN.sanINT(params[x]);
-            query += ' and age <= ' + params[x];
-            break;
           case 'friends(count)':
             params[x] = libVERSAN.sanINT(params[x]);
             query += ' and friend_count ' + params['friend_count(operator)'] + ' ' + params[x];
@@ -213,15 +243,7 @@ return resultsArray
             params[x] = libVERSAN.sanINT(params[x]);
             query += ' and num_vids != 0';
             break;
-          case 'user-sex':
-              query += ' and (';
-              for (var i in params[x]) {
-                params[x][i] = libVERSAN.sanString(params[x][i]);
-                query += 'gender=' + params[x][i];
-                if (i < params[x].length - 1) { query += ' or '; }
-              }
-            query += ')';
-            break;
+
           case 'user-sexual_orientation':
               query += ' and (';
               for (var i in params[x]) {
@@ -231,15 +253,7 @@ return resultsArray
               }
             query += ')';
             break;
-          case 'user-role':
-              query += ' and (';
-              for (var i in params[x]) {
-                params[x][i] = libVERSAN.sanString(params[x][i]);
-                query += 'role=' + params[x][i];
-                if (i < params[x].length - 1) { query += ' or '; }
-              }
-            query += ')';
-            break;
+
           case 'user-activity_level':
               query += ' and (';
               for (var i in params[x]) {
@@ -270,12 +284,7 @@ return resultsArray
               query += ' and location_region= ' + params[x];
             }
             break;
-          case 'location_country':
-            params[x] = libVERSAN.sanString(params[x]);
-            if (params[x]) {
-              query += ' and location_country= ' + params[x];
-            }
-            break;
+
           case 'user(type)':
             if (params[x]) {
               params[x] = libVERSAN.sanBoolean();
