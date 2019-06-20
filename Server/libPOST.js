@@ -62,7 +62,7 @@ module.exports = {
     cols = cols.replace(/,\s*$/, "");
     vals = vals.replace(/,\s*$/, "");
 
-    var sql = "INSERT INTO UserData (" + cols + ") VALUE (" + vals + ")";
+    var sql = "INSERT IGNORE INTO UserData (" + cols + ") VALUE (" + vals + ")";
 
     db.con.query(sql, function(err, result, fields) {
       if (err) {
