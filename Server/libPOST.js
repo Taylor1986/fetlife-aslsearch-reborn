@@ -26,7 +26,6 @@ module.exports = {
     cols = cols.replace(/,\s*$/, "");
 
     var sql = "update UserData set " + cols + " where user_id =" + id;
-    console.log("sql: " + sql);
 
     db.con.query(sql, function(err, result, fields) {
       if (err) {
@@ -64,7 +63,6 @@ module.exports = {
     vals = vals.replace(/,\s*$/, "");
 
     var sql = "INSERT INTO UserData (" + cols + ") VALUE (" + vals + ")";
-    console.log("sql: " + sql);
 
     db.con.query(sql, function(err, result, fields) {
       if (err) {

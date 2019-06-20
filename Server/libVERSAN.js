@@ -60,25 +60,24 @@ module.exports = {
     INT = mysql.escape(INT);
     return INT;
   },
-  sanBoolean: function(bool) {
+  sanBool: function(bool) {
     //transform true/false or 1/0 to boolean
     if (bool == 1) {
       bool = true;
     } else if (bool == 0) {
       bool = false;
-    } else if (bool == "true" || "True") {
+    } else if (bool == "true" || bool == "True" || bool == "TRUE") {
       bool = true;
-    } else if (vool == "false" || "False") {
+    } else if (bool == "false" || bool == "False" || bool == "FALSE") {
       bool = false;
     }
-
-    if (typeof value === "boolean") {
+    if (typeof bool === "boolean") {
       bool = mysql.escape(bool);
       return bool;
-    } else {
+    } 
       console.log("WARNING: Expected boolean value in " + bool);
       return null;
-    }
+    
   },
 
   validateInput: function(obj) {
@@ -107,18 +106,24 @@ module.exports = {
           obj[k] = mysql.escape(obj[k]);
           break;
         case "paid_account":
-          obj[k] = sanBoolean(obj[k]);
-          if (obj[k] != null) {
-            safe_obj[k] = obj[k];
-          } else {
-            console.log("WARNING: Expected boolean value in " + obj[k]);
-          }
-          break;
-        case "avatar_url":
-          if (obj[k].match(/^https:\/\/pic[0-9]*\.fetlife\.com/)) {
-            obj[k] = mysql.escape(obj[k]);
-            safe_obj[k] = obj[k];
-          }
+            if (!typeof bool === "boolean") {
+              if (obj[k] == 1) {
+                obj[k] = true;
+              } else if (obj[k] == 0) {
+                obj[k] = false;
+              } else if (obj[k] == "true" || obj[k] == "True") {
+                obj[k] = true;
+              } else if (obj[k] == "false" || obj[k] == "False") {
+                obj[k] = false;
+              }
+            }
+              if (typeof obj[k] === "boolean") {
+                safe_obj[k] = mysql.escape(obj[k]);
+              } 
+              else{
+                console.log("WARNING: Expected boolean value in " + obj[k]);
+              }
+                
           break;
         default:
           // If != a used key, drop it somewhere around here or before switch

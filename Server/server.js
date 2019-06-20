@@ -28,15 +28,16 @@ app.post("/scraper", function(request, response) {
     profiles = [profiles];
   }
   var feedback = "Recieved " + profiles.length + " scraped users to Process.";
+  console.log(feedback);
+  response.status(200).end(JSON.stringify(feedback));
   for (var profile in profiles) {
     const processed = libVERSAN.validateInput(profiles[profile]);
-    console.log(processed);
-    console.log(processed.user_id);
-
+    //Enable for verbose output of incomming  data
+    //console.log(processed);
     // check if userentry already exists
     if (processed && processed.user_id) {
       var query =
-        "SELECT user_id FROM UserData where user_id= " + processed.user_id;
+        "SELECT user_id, last_updated FROM UserData where user_id= " + processed.user_id;
       db.con.query(query, function(err, result, fields) {
         if (err) {
           throw err;
@@ -45,7 +46,6 @@ app.post("/scraper", function(request, response) {
           //if not already here, dont update, add new
           if (result.length == 0) {
             //var insert = requestInsert(data);
-            console.log("inserting");
             libPOST.requestInsert(processed);
             output = {
               DB_Response: "Inserted new user",
@@ -53,12 +53,23 @@ app.post("/scraper", function(request, response) {
             };
           } else if (result.length == 1) {
             //var update = requestUpdate(data);
-            console.log("updating");
+            var lastUpdate = result[0].last_updated.valueOf();
+            var nextUpdate = new Date();
+            nextUpdate.setDate(nextUpdate.getDate()-28);
+            nextUpdate = nextUpdate.valueOf();
+            if(nextUpdate > lastUpdate){
             libPOST.requestUpdate(result[0].user_id, processed);
             output = {
               DB_Response: "Updated user",
               for_User: processed.user_id
             };
+          }
+          else{
+            output = {
+              DB_Response: "User already up-to-date",
+              for_User: processed.user_id
+            };
+          }
           } else {
             output = {
               DB_Response: "Cant Process",
@@ -69,16 +80,14 @@ app.post("/scraper", function(request, response) {
         }
       });
     }
-    console.log(feedback);
-    response.status(200).end(JSON.stringify(feedback));
   }
+
 });
 
 var server = app.listen(config.Listenport, function() {
   var port = server.address().port;
   console.log("Server started at http://localhost:%s", port);
   app.get("/query", function(request, response) {
-    console.log(request.params);
     var query = libGET.processSearchForm(request.query);
     if (!query) {
       response.status(400).send("Error in search query");
@@ -94,7 +103,6 @@ var server = app.listen(config.Listenport, function() {
 
           var end = new Date();
           console.log("Search sompleted, Time elapsed: %sms", end - start);
-          //console.log("json is " + encodeURIComponent(json));
           response.setHeader("Content-Type", "application/json");
           response.send(searchResults);
         }

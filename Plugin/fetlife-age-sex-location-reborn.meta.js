@@ -5,9 +5,9 @@
  */
 // ==UserScript==
 // @name		   FetLife ASL Search (Reborn Edition)
-// @version		0.5.9.9
+// @version		0.6.0
 // @namespace	  https://github.com/Ornias1993/fetlife-aslsearch-reborn
-// @downloadURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/plugin/fetlife-age-sex-location-reborn.user.js
+// @downloadURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-reborn.user.js
 // @updateURL	  https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-reborn.meta.js
 // @description	Allows you to search for FetLife profiles based on age, sex, location, and role.
 // @require		https://code.jquery.com/jquery-2.1.4.min.js
@@ -26,5 +26,5 @@
 // ==/UserScript==
 
 
-// THis file is only meant to push legacy users (aka old versions), to the new location of the plugin and meta file under /plugins
-// please head there instead.
+//This file is only meant to make checking for updates lighter on the client.
+//Instead install: https://github.com/Ornias1993/fetlife-aslsearch-reborn/raw/master/fetlife-age-sex-location-reborn.user.js

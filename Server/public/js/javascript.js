@@ -100,7 +100,7 @@ jQuery(document).ready(function() {
 // URL to be send via get and wait for response
 function request(url) {
   const xhr = new XMLHttpRequest();
-  xhr.timeout = 2000;
+  xhr.timeout = 20000;
   xhr.onreadystatechange = function(e) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
