@@ -2,10 +2,10 @@
 logs
 *.log
 
-# XLS(X) database files
-*.xls
-*.xlsx
+# XLSX database files
+Import/*.xlsx
+Export/*.xlsx
 
 # CSV export
-*.csv
+Export/*.csv
 

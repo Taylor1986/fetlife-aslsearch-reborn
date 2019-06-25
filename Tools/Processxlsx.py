@@ -5,18 +5,18 @@ import xlrd
 import csv
 
 
-path = 'Import\\'
+import_path = 'Import\\'
+export_path = 'Export\\'
 
-# filenames
-excel_names = []
 
-files = [f for f in glob.glob(path + "**/*.xlsx", recursive=True)]
+# filename storage + define column sheet
+excel_names = ['columns.xlsx']
+
+files = [f for f in glob.glob(import_path + "**/*.xlsx", recursive=True)]
 
 for f in files:
 	excel_names.append(f)
 	print(f)
-
-
 
 # read them in
 excels = [pd.ExcelFile(name) for name in excel_names]
@@ -32,7 +32,7 @@ frames[1:] = [df[1:] for df in frames[1:]]
 combined = pd.concat(frames)
 
 # write it out
-combined.to_excel("fetlifemerged.xlsx", header=False, index=False)
+combined.to_excel(export_path + "fetlifemerged.xlsx", header=False, index=False)
 
 
 # Results go to the default directory if not assigned somewhere else.
@@ -41,9 +41,9 @@ combined.to_excel("fetlifemerged.xlsx", header=False, index=False)
 
 
 def csv_from_excel():
-    wb = xlrd.open_workbook('fetlifemerged.xlsx')
+    wb = xlrd.open_workbook(export_path + 'fetlifemerged.xlsx')
     sh = wb.sheet_by_name('Sheet1')
-    your_csv_file = open('fetlifemerged.csv', 'w', encoding='utf-8')
+    your_csv_file = open(export_path + 'fetlifemerged.csv', 'w', encoding='utf-8')
     wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
 
     for rownum in range(sh.nrows):
