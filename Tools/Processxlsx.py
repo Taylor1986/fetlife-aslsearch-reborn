@@ -1,49 +1,85 @@
 import pandas as pd
-
 import glob
 import xlrd
 import csv
+import re
 
+# Be aware: CD to the right dir first!
 
+# Define the Import and Export folder
+# Needs changing when used with Linux
 import_path = 'Import\\'
 export_path = 'Export\\'
 
+# Removes HTML tags when called
 
-# filename storage + define column sheet
+
+def remove_html_tags(data):
+    p = re.compile(r'<.*?>')
+    return p.sub('', data)
+
+# Removes lone linebreaks (without /r) when called
+
+
+def remove_n_without_r(data):
+    p = re.compile(r'(?<!\r)\n')
+    return p.sub('', data)
+
+
+# filename storage + define column sheet, put it first in filelist
 excel_names = ['columns.xlsx']
 
+# Search for xlsx files in the import folder and add them to the filelist
+print("Importing XLSX...")
 files = [f for f in glob.glob(import_path + "**/*.xlsx", recursive=True)]
 
 for f in files:
-	excel_names.append(f)
-	print(f)
+    excel_names.append(f)
+    # uncomment to enable listing of imported files
+    # print(f)
 
 # read them in
 excels = [pd.ExcelFile(name) for name in excel_names]
 
 # turn them into dataframes
-frames = [x.parse(x.sheet_names[0], header=None,index_col=None) for x in excels]
+frames = [x.parse(x.sheet_names[0], header=None, index_col=None)
+          for x in excels]
 
 # delete the first row for all frames except the first
 # i.e. remove the header row -- assumes it's the first
+print("Cleaning XLSX...")
 frames[1:] = [df[1:] for df in frames[1:]]
 
+# Check every row for HTML and linebreaks
+# Remove them due to corrupting the CSV later on
+for df in frames:
+    for col in df:
+        for i, row_value in df[col].iteritems():
+            try:
+                df[col][i] = remove_html_tags(df[col][i])
+                df[col][i] = remove_n_without_r(df[col][i])
+
+            except TypeError:
+                # Not everything is a string, just skipt if so
+                ...
+
+
+print("Merging XLSX...")
 # concatenate them..
 combined = pd.concat(frames)
 
+print("Exporting XLSX...")
 # write it out
-combined.to_excel(export_path + "fetlifemerged.xlsx", header=False, index=False)
+combined.to_excel(export_path + "fetlifemerged.xlsx",
+                  header=False, index=False)
 
 
-# Results go to the default directory if not assigned somewhere else.
-# C:\Users\Excel\.spyder-py3
-
-
-
+# Take XLSX and turn it into CSV
 def csv_from_excel():
     wb = xlrd.open_workbook(export_path + 'fetlifemerged.xlsx')
     sh = wb.sheet_by_name('Sheet1')
-    your_csv_file = open(export_path + 'fetlifemerged.csv', 'w', newline='', encoding='utf-8')
+    your_csv_file = open(export_path + 'fetlifemerged.csv',
+                         'w', newline='', encoding='utf-8')
     wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
 
     for rownum in range(sh.nrows):
@@ -51,5 +87,9 @@ def csv_from_excel():
 
     your_csv_file.close()
 
+
+print("Converting XLSX to CSV...")
 # runs the csv_from_excel function:
 csv_from_excel()
+
+print("Finished!")
