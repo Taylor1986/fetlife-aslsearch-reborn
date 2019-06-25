@@ -1,0 +1,11 @@
+# Logs
+logs
+*.log
+
+# XLS(X) database files
+*.xls
+*.xlsx
+
+# CSV export
+*.csv
+
