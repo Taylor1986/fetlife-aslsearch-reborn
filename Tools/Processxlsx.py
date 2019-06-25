@@ -62,6 +62,9 @@ for df in frames:
             except TypeError:
                 # Not everything is a string, just skipt if so
                 ...
+            if col == "user_id":
+                print("triggered")
+                df[col][i] = df[col][i].astype(float)  
 
 
 print("Merging XLSX...")
@@ -80,7 +83,7 @@ def csv_from_excel():
     sh = wb.sheet_by_name('Sheet1')
     your_csv_file = open(export_path + 'fetlifemerged.csv',
                          'w', newline='', encoding='utf-8')
-    wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
+    wr = csv.writer(your_csv_file, quoting=csv.QUOTE_MINIMAL)
 
     for rownum in range(sh.nrows):
         wr.writerow(sh.row_values(rownum))
@@ -91,5 +94,26 @@ def csv_from_excel():
 print("Converting XLSX to CSV...")
 # runs the csv_from_excel function:
 csv_from_excel()
+
+print("Creating SQL file...")
+
+openFile = open(export_path + 'fetlifemerged.csv', 'r', encoding="utf8")
+csvFile = csv.reader(openFile)
+header = next(csvFile)
+headers = map((lambda x: '`'+x+'`'), header)
+insert = 'INSERT IGNORE INTO import (' + ", ".join(headers) + ") VALUES "
+with open(export_path + "fetlifemerged.sql", "w", encoding="utf8") as sql_file:
+    with open("sql_start.sql") as sql_start:
+        for line in sql_start:
+            if "ROW" in line:
+                sql_file.write(line) 
+    for row in csvFile:
+      values = map((lambda x: '"'+x+'"'), row)
+      print (insert +"("+ ", ".join(values) +");", file=sql_file)
+    with open("sql_end.txt") as sql_end:
+        for line in sql_end:
+            if "ROW" in line:
+                sql_file.write(line) 
+openFile.close()
 
 print("Finished!")
