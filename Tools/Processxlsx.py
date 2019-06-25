@@ -43,7 +43,7 @@ combined.to_excel(export_path + "fetlifemerged.xlsx", header=False, index=False)
 def csv_from_excel():
     wb = xlrd.open_workbook(export_path + 'fetlifemerged.xlsx')
     sh = wb.sheet_by_name('Sheet1')
-    your_csv_file = open(export_path + 'fetlifemerged.csv', 'w', encoding='utf-8')
+    your_csv_file = open(export_path + 'fetlifemerged.csv', 'w', newline='', encoding='utf-8')
     wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
 
     for rownum in range(sh.nrows):
