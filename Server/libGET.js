@@ -66,13 +66,14 @@ function arrayGen(rawFields, rawResults) {
  * Creates SQL query from search form input.
  */
 function buildSQLQuery(params) {
-  // always add "where C is not null" to the query to avoid getting inactive user IDs
+  // Format primary query
   var query =
     "select user_id, nickname, age, gender, role, friend_count, paid_account, location_locality, location_region, location_country, avatar_url, sexual_orientation, interest_level, looking_for, num_pics, num_vids FROM UserData where ";
-  for (var x in params) {
+    // Start with processing the cumulative roles/etc into the right format
+    for (var x in params) {
     if (params[x]) {
       switch (true) {
-        //Cases filter input from form, only accept known input options
+        
         case /^user-sex[\d]{1,2}/.test(x):
           if (!params["user-sex"]) {
             params["user-sex"] = [];
@@ -107,9 +108,13 @@ function buildSQLQuery(params) {
     }
   }
 
+  // Process Indexed parameters first in the right order for indexing to hit
+  // Always add an age. Query requires at least one paramater
   if (!params["min_age"]) {
     query += "age >= 18";
-  } else {
+  } 
+  // Else just use the given age
+  else {
     params["min_age"] = libVERSAN.sanINT(params["min_age"]);
     query += "age >= " + params["min_age"];
   }
@@ -301,6 +306,7 @@ function buildSQLQuery(params) {
       }
     }
   }
+  // add results limit, users should refine searches, not request more results
   query += " LIMIT 500";
   return query;
 }

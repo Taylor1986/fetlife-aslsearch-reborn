@@ -1,6 +1,8 @@
 var mysql = require('mysql');
+// Use the config json for settings
 var config = require('./config.json');
 
+// create SQL pool
 var pool = mysql.createPool({
     host: config.DBhost,
     user: config.DBusername,
@@ -9,6 +11,7 @@ var pool = mysql.createPool({
     port: config.DBport
 });
 
+// Create a hook for normal SQL requests to be "poolified"
 exports.con = {
     query: function () {
         var queryArgs = Array.prototype.slice.call(arguments),

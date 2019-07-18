@@ -33,7 +33,8 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-// Access the parse results as request.body
+// Listen for POST scrape results.
+// and Access the parse results as request.body
 app.post("/scraper", function(request, response) {
   var profiles = JSON.parse(request.body.post_data);
 
@@ -97,6 +98,7 @@ app.post("/scraper", function(request, response) {
 
 });
 
+// Listen for GET (search) requests
 var server = app.listen(config.Listenport, function() {
   var port = server.address().port;
   console.log("Server started at http://localhost:%s", port);

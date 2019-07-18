@@ -80,32 +80,39 @@ module.exports = {
     
   },
 
+  // Input validation script for scraper
   validateInput: function(obj) {
     var safe_obj = {};
 
     for (var k in obj) {
       switch (k) {
         case "user_id":
+          // Make sure this is an int and sql safe
           safe_obj[k] = parseInt(obj[k]);
           obj[k] = mysql.escape(obj[k]);
           break;
         case "age":
+          // Make sure this is an int and sql safe
           safe_obj[k] = parseInt(obj[k]);
           obj[k] = mysql.escape(obj[k]);
           break;
         case "friend_count":
+          // Make sure this is an int and sql safe
           safe_obj[k] = parseInt(obj[k]);
           obj[k] = mysql.escape(obj[k]);
           break;
         case "num_pics":
+        // Make sure this is an int and sql safe
           safe_obj[k] = parseInt(obj[k]);
           obj[k] = mysql.escape(obj[k]);
           break;
         case "num_vids":
+        // Make sure this is an int and sql safe
           safe_obj[k] = parseInt(obj[k]);
           obj[k] = mysql.escape(obj[k]);
           break;
         case "paid_account":
+        // Make sure this is an boolean and sql safe
             if (!typeof bool === "boolean") {
               if (obj[k] == 1) {
                 obj[k] = true;
@@ -125,6 +132,10 @@ module.exports = {
               }
                 
           break;
+        // TODO:
+        // Verify if a website is a website
+        // Verify if countries exist
+        // Verify if urls are urls
         default:
           // If != a used key, drop it somewhere around here or before switch
           //
@@ -136,6 +147,7 @@ module.exports = {
           break;
       }
     }
+    // send back the cleaned object
     return safe_obj;
   }
 };
