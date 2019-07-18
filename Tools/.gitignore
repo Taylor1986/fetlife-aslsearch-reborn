@@ -9,3 +9,5 @@ Export/*.xlsx
 # CSV export
 Export/*.csv
 
+# SQL export
+Export/*.sql
