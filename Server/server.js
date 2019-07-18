@@ -6,7 +6,20 @@ var config = require("./config.json");
 var db = require("./db");
 var libPOST = require("./libPOST");
 var libVERSAN = require("./libVERSAN.js");
+const rateLimit = require("express-rate-limit");
 
+// Rate limiter options
+const limiter = rateLimit({
+  windowMs: 1 * 30 * 1000, // 30 seconds
+  max: 15 // limit each IP to 5 requests per windowMs
+});
+
+// Add limiter to requests
+app.use(limiter);
+app.post(limiter);
+app.get(limiter);
+
+// Public folder
 app.use(express.static("public"));
 
 //make way for some custom css, js and images
