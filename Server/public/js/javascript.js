@@ -22,7 +22,7 @@ jQuery(document).ready(function() {
     );
     console.log(json);
     stringify = encodeURIComponent(JSON.stringify(json));
-    request("http://localhost:8081/query?" + stringify);
+    request("query?" + stringify);
   });
 
   jQuery('#search-form select[name="user[type]"]').on("change", function() {
