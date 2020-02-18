@@ -3,6 +3,15 @@
 <br>
 ![built-with-resentment](http://forthebadge.com/images/badges/built-with-resentment.svg) ![contains-technical-debt](http://forthebadge.com/images/badges/contains-technical-debt.svg)
 
+# Notice
+Due to inherent database-poisoning risks, this project has been closed. When and If this returns, it will be in a serverely different form. Giving everyone the option to add to the database, has create a situation where people (by design) could poison the database with wrong data. Sadly enough when migrating the database to launch the new beta server, it became clear this already happened.
+
+Although we have some extensive backups for the database, this has shown a severe designflaw that cannot be fixed without even more extensive rethinking of the project.
+
+The current work on the Node version will be merged and this repo archived.
+It was great servering you guys!
+
+
 The FetLife Age/Sex/Location Search user script allows you to search for profiles on [FetLife](https://fetlife.com/) by age, sex, location, sexual role, sexual orientation, profile bio (a user's "About Me" section), listed fetishes, what they've entered for "Looking For," and much, much more. This user script implements and then extends what is, as of this writing, the [most popular suggestion in the FetLife suggestion box](https://fetlife.com/improvements/78):
 
 > Search for people by Location/Sex/Orientation/Age
