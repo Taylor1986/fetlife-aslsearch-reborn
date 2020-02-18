@@ -1,0 +1,8 @@
+{
+    "DBusername" : "DBuser",
+    "DBpassword" : "DBpassword",
+    "DBhost" : "SQL.DBhost.com",
+    "DBdatabase" : "DBdatabase",
+    "DBport"     : "Port Number",
+    "Listenport" : "Port Number"
+}
